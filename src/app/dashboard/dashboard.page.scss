@@ -1,0 +1,302 @@
+ion-content {
+  --background: #f0f5ff;
+}
+
+ion-toolbar {
+  --background: #ffffff;
+  --color: #30365c;
+  --border-width: 0;
+  --min-height: 64px;
+}
+
+ion-title {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.brand-paw {
+  margin-right: 6px;
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 22px 18px 30px;
+}
+
+/* Welcome banner */
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 24px;
+  background: linear-gradient(135deg, #4059d9, #7778ef);
+  border-radius: 24px;
+  box-shadow: 0 8px 22px rgba(64, 89, 217, 0.2);
+  overflow: hidden;
+  color: #ffffff;
+}
+
+.welcome-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.welcome-label {
+  color: #e1e5ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 0 0 10px;
+}
+
+.welcome-section h1 {
+  color: #ffffff;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.welcome-section p:last-child {
+  color: #f0f1ff;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.welcome-paw {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 55px;
+  transform: rotate(5deg);
+}
+
+/* Section heading */
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 30px 2px 18px;
+}
+
+.section-heading h2 {
+  color: #30365c;
+  font-size: 21px;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+.section-heading p {
+  color: #7b8198;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.paw-decoration {
+  font-size: 28px;
+}
+
+/* Service cards */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 205px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #e4eaff;
+  border-radius: 20px;
+  box-shadow: 0 5px 16px rgba(45, 55, 110, 0.055);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:active {
+  transform: scale(0.98);
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #edf1ff;
+  font-size: 27px;
+  margin-bottom: 17px;
+}
+
+.dashboard-card h3 {
+  color: #30365c;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin: 0 0 8px;
+}
+
+.dashboard-card > p {
+  color: #7b8198;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #edf0fa;
+  color: #4059d9;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.card-arrow {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.appointments-card .card-icon {
+  background: #e8f5ff;
+}
+
+.pet-cards-card .card-icon {
+  background: #e8f8f0;
+}
+
+.reports-card .card-icon {
+  background: #fff3e5;
+}
+
+.log-card .card-icon {
+  background: #f3eaff;
+}
+
+.profile-card .card-icon {
+  background: #ffeaf2;
+}
+
+/* Footer */
+.dashboard-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 16px 10px;
+  text-align: center;
+}
+
+.dashboard-footer span {
+  font-size: 18px;
+}
+
+.dashboard-footer p {
+  color: #7b8198;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Mobile layout */
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 14px 12px 24px;
+  }
+
+  ion-toolbar {
+    --min-height: 58px;
+  }
+
+  ion-title {
+    font-size: 17px;
+  }
+
+  .welcome-section {
+    padding: 22px 17px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+
+  .welcome-section h1 {
+    font-size: 23px;
+  }
+
+  .welcome-section p:last-child {
+    font-size: 12px;
+  }
+
+  .welcome-paw {
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    font-size: 36px;
+  }
+
+  .section-heading {
+    margin-top: 25px;
+  }
+
+  .section-heading h2 {
+    font-size: 19px;
+  }
+
+  .dashboard-grid {
+    gap: 11px;
+  }
+
+  .dashboard-card {
+    min-height: 205px;
+    padding: 14px 12px;
+    border-radius: 17px;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 23px;
+    margin-bottom: 13px;
+  }
+
+  .dashboard-card h3 {
+    font-size: 14px;
+  }
+
+  .dashboard-card > p {
+    font-size: 12px;
+  }
+
+  .card-footer {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

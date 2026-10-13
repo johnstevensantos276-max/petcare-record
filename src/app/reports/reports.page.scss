@@ -1,0 +1,256 @@
+ion-header ion-toolbar {
+  --background: #ffffff;
+  --color: #26356f;
+  --border-color: transparent;
+  padding: 6px 12px;
+}
+
+ion-content {
+  --background: #f0f5ff;
+}
+
+.reports-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 22px 16px 30px;
+  box-sizing: border-box;
+}
+
+.page-heading {
+  text-align: center;
+  padding: 12px 8px 28px;
+}
+
+.heading-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e1e8ff;
+  border-radius: 22px;
+  font-size: 34px;
+}
+
+.page-heading h1 {
+  margin: 0 0 8px;
+  color: #26356f;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.page-heading p,
+.section-heading p,
+.records-heading p {
+  margin: 0;
+  color: #7b86a5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.section-heading {
+  margin-bottom: 14px;
+}
+
+.section-heading h2 {
+  margin: 0 0 5px;
+  color: #26356f;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.summary-card {
+  margin: 0;
+  min-width: 0;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(53, 76, 145, 0.08);
+  overflow: hidden;
+}
+
+.summary-card ion-card-content {
+  padding: 18px;
+}
+
+.summary-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  font-size: 24px;
+}
+
+.summary-card p {
+  margin: 0 0 8px;
+  color: #526080;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.summary-card h2 {
+  margin: 0 0 7px;
+  color: #26356f;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.summary-card > ion-card-content > span {
+  color: #7b86a5;
+  font-size: 11px;
+}
+
+.summary-card.blue {
+  background: #e8edff;
+  border-left: 4px solid #4059d9;
+}
+
+.summary-card.green {
+  background: #e6f8ee;
+  border-left: 4px solid #28a76a;
+}
+
+.summary-card.red {
+  background: #fff0f0;
+  border-left: 4px solid #e45b65;
+}
+
+.summary-card.purple {
+  background: #f0eaff;
+  border-left: 4px solid #8a63d2;
+}
+
+.records-summary {
+  margin-top: 26px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(53, 76, 145, 0.08);
+}
+
+.records-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eef1f8;
+}
+
+.records-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8edff;
+  border-radius: 15px;
+  font-size: 24px;
+}
+
+.records-heading h2 {
+  margin: 0 0 5px;
+  color: #26356f;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.record-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 15px 4px;
+  border-bottom: 1px solid #eef1f8;
+  color: #35436f;
+  font-size: 14px;
+}
+
+.record-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.record-icon {
+  font-size: 21px;
+}
+
+.record-row strong {
+  color: #26356f;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.record-row.total-row {
+  margin-top: 4px;
+  padding: 17px 12px;
+  background: #f0f3ff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.back-button {
+  margin-top: 18px;
+  --color: #4059d9;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.reports-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  color: #7b86a5;
+  text-align: center;
+}
+
+.reports-footer span {
+  font-size: 18px;
+}
+
+.reports-footer p {
+  margin: 0;
+  font-size: 12px;
+}
+
+@media (max-width: 420px) {
+  .reports-container {
+    padding: 18px 12px 26px;
+  }
+
+  .page-heading h1 {
+    font-size: 23px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .summary-card ion-card-content {
+    padding: 16px;
+  }
+
+  .summary-icon {
+    margin-bottom: 10px;
+  }
+
+  .records-summary {
+    padding: 16px;
+  }
+}

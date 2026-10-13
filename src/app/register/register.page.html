@@ -1,0 +1,52 @@
+<h1>Create Account</h1>
+<p class="subtitle">Register to continue to PetCare</p>
+
+<ion-item>
+  <ion-input
+    label="Full Name"
+    labelPlacement="floating"
+    type="text"
+    [(ngModel)]="fullName">
+  </ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-input
+    label="Username"
+    labelPlacement="floating"
+    type="text"
+    [(ngModel)]="username">
+  </ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-input
+    label="Password"
+    labelPlacement="floating"
+    type="password"
+    [(ngModel)]="password">
+  </ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-input
+    label="Confirm Password"
+    labelPlacement="floating"
+    type="password"
+    [(ngModel)]="confirmPassword">
+  </ion-input>
+</ion-item>
+
+<ion-button
+  expand="block"
+  class="register-button"
+  (click)="register()">
+  Register
+</ion-button>
+
+<ion-button
+  expand="block"
+  fill="clear"
+  routerLink="/login">
+  Back to Login
+</ion-button>

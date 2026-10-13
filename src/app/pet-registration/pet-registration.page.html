@@ -1,0 +1,115 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>🐾 Pet Registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="registration-container">
+
+    <div class="page-heading">
+      <div class="heading-icon">🐶</div>
+      <h1>Register Your Pet</h1>
+      <p>Add your pet's details to keep their records organized.</p>
+    </div>
+
+    <div class="registration-form">
+      <div class="form-section-title">
+        <span>🐾</span>
+        <h2>Pet Information</h2>
+      </div>
+
+      <ion-item>
+        <ion-input
+          label="Pet Name"
+          labelPlacement="stacked"
+          placeholder="Enter your pet's name"
+          [(ngModel)]="petName">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Birthday"
+          labelPlacement="stacked"
+          type="date"
+          [(ngModel)]="birthday">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          label="Pet Type"
+          labelPlacement="stacked"
+          placeholder="Select pet type"
+          [(ngModel)]="petType">
+          <ion-select-option value="Dog">Dog</ion-select-option>
+          <ion-select-option value="Cat">Cat</ion-select-option>
+          <ion-select-option value="Bird">Bird</ion-select-option>
+          <ion-select-option value="Rabbit">Rabbit</ion-select-option>
+          <ion-select-option value="Other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Breed"
+          labelPlacement="stacked"
+          placeholder="Enter breed"
+          [(ngModel)]="breed">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Owner Name"
+          labelPlacement="stacked"
+          placeholder="Enter owner's name"
+          [(ngModel)]="ownerName">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          label="Vaccination Status"
+          labelPlacement="stacked"
+          placeholder="Select status"
+          [(ngModel)]="vaccinationStatus">
+          <ion-select-option value="Vaccinated">Vaccinated</ion-select-option>
+          <ion-select-option value="Not Vaccinated">Not Vaccinated</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="notes-item">
+        <ion-textarea
+          label="Medical Notes"
+          labelPlacement="stacked"
+          placeholder="Enter medical notes (optional)"
+          [autoGrow]="true"
+          [(ngModel)]="medicalNotes">
+        </ion-textarea>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        class="save-button"
+        (click)="savePet()">
+        Save Pet Record
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="clear"
+        class="back-button"
+        routerLink="/dashboard">
+        Back to Dashboard
+      </ion-button>
+    </div>
+
+    <div class="form-footer">
+      <span>💜</span>
+      <p>Every pet deserves love and proper care.</p>
+    </div>
+
+  </div>
+</ion-content>

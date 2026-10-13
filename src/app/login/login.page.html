@@ -1,0 +1,38 @@
+<ion-header> <ion-toolbar> <ion-title>PetCare Login</ion-title> </ion-toolbar> </ion-header> <ion-content class="ion-padding"> <div class="login-container">
+<h1>Welcome to PetCare 🐾</h1>
+<p class="subtitle">Login to continue</p>
+
+<ion-item>
+  <ion-input
+    label="Username"
+    labelPlacement="floating"
+    type="text"
+    placeholder="Enter username"
+    [(ngModel)]="username">
+  </ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-input
+    label="Password"
+    labelPlacement="floating"
+    type="password"
+    placeholder="Enter password"
+    [(ngModel)]="password">
+  </ion-input>
+</ion-item>
+
+<ion-button
+  expand="block"
+  class="login-button"
+  (click)="login()">
+  Login
+</ion-button>
+
+<ion-button
+  expand="block"
+  fill="clear"
+  routerLink="/register">
+  Create Account
+</ion-button>
+</div> </ion-content>

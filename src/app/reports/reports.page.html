@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>🐾 PetCare Reports</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="reports-container">
+
+    <div class="page-heading">
+      <div class="heading-icon">📊</div>
+      <h1>PetCare Reports</h1>
+      <p>View a summary of your pet records and appointments.</p>
+    </div>
+
+    <div class="section-heading">
+      <h2>Overview</h2>
+      <p>Quick summary of your records</p>
+    </div>
+
+    <div class="summary-grid">
+
+      <ion-card class="summary-card blue">
+        <ion-card-content>
+          <div class="summary-icon">🐾</div>
+          <p>Total Pets</p>
+          <h2>{{ totalPets }}</h2>
+          <span>Registered pets</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="summary-card green">
+        <ion-card-content>
+          <div class="summary-icon">💚</div>
+          <p>Vaccinated</p>
+          <h2>{{ vaccinated }}</h2>
+          <span>Vaccination status</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="summary-card red">
+        <ion-card-content>
+          <div class="summary-icon">💉</div>
+          <p>Not Vaccinated</p>
+          <h2>{{ notVaccinated }}</h2>
+          <span>Needs attention</span>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="summary-card purple">
+        <ion-card-content>
+          <div class="summary-icon">📅</div>
+          <p>Total Appointments</p>
+          <h2>{{ totalAppointments }}</h2>
+          <span>Scheduled visits</span>
+        </ion-card-content>
+      </ion-card>
+
+    </div>
+
+    <div class="records-summary">
+      <div class="records-heading">
+        <div class="records-icon">📋</div>
+        <div>
+          <h2>Pet Records Summary</h2>
+          <p>Number of pets by type</p>
+        </div>
+      </div>
+
+      <div class="record-row">
+        <div class="record-label">
+          <span class="record-icon">🐕</span>
+          <span>Dogs</span>
+        </div>
+        <strong>{{ dogs }}</strong>
+      </div>
+
+      <div class="record-row">
+        <div class="record-label">
+          <span class="record-icon">🐈</span>
+          <span>Cats</span>
+        </div>
+        <strong>{{ cats }}</strong>
+      </div>
+
+      <div class="record-row">
+        <div class="record-label">
+          <span class="record-icon">🐾</span>
+          <span>Other Pets</span>
+        </div>
+        <strong>{{ otherPets }}</strong>
+      </div>
+
+      <div class="record-row total-row">
+        <span>Total Records</span>
+        <strong>{{ totalPets }}</strong>
+      </div>
+    </div>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      class="back-button"
+      routerLink="/dashboard">
+      ← Back to Dashboard
+    </ion-button>
+
+    <div class="reports-footer">
+      <span>💜</span>
+      <p>Every pet deserves love, care, and attention.</p>
+    </div>
+
+  </div>
+</ion-content>

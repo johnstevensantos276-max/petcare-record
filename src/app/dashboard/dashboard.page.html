@@ -1,0 +1,109 @@
+<ion-header class="dashboard-header">
+  <ion-toolbar>
+    <ion-title>
+      <span class="brand-paw">🐾</span> PetCare Record
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="dashboard-container">
+
+    <!-- Welcome Banner -->
+    <div class="welcome-section">
+      <div class="welcome-text">
+        <p class="welcome-label">PETCARE RECORD</p>
+        <h1>Hello, Pet Lover! 🐾</h1>
+        <p>Keep your pets' information organized in one place.</p>
+      </div>
+      <div class="welcome-paw">🐶</div>
+    </div>
+
+    <!-- Section Heading -->
+    <div class="section-heading">
+      <div>
+        <h2>PetCare Services</h2>
+        <p>What would you like to do today?</p>
+      </div>
+      <span class="paw-decoration">🐾</span>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="dashboard-grid">
+
+      <div class="dashboard-card registration-card"
+           routerLink="/pet-registration">
+        <div class="card-icon">🐾</div>
+        <h3>Pet Registration</h3>
+        <p>Add your pet's information and health details.</p>
+        <div class="card-footer">
+          <span>Register a pet</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card appointments-card"
+           routerLink="/appointments">
+        <div class="card-icon">📅</div>
+        <h3>Appointments</h3>
+        <p>Record your pet's veterinarian schedule.</p>
+        <div class="card-footer">
+          <span>Manage schedule</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card pet-cards-card"
+           routerLink="/pet-cards">
+        <div class="card-icon">🐕</div>
+        <h3>Pet Cards</h3>
+        <p>View your registered pets and their details.</p>
+        <div class="card-footer">
+          <span>View pet records</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card reports-card"
+           routerLink="/reports">
+        <div class="card-icon">📋</div>
+        <h3>Reports</h3>
+        <p>Check your pet records and vaccination status.</p>
+        <div class="card-footer">
+          <span>View reports</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card log-card"
+           routerLink="/appointment-log">
+        <div class="card-icon">🗓️</div>
+        <h3>Appointment Log</h3>
+        <p>Review your recorded appointments.</p>
+        <div class="card-footer">
+          <span>View appointment log</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="dashboard-card profile-card"
+           routerLink="/profile">
+        <div class="card-icon">👤</div>
+        <h3>My Profile</h3>
+        <p>View your account information and log out.</p>
+        <div class="card-footer">
+          <span>Open profile</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Note -->
+    <div class="dashboard-footer">
+      <span>💜</span>
+      <p>Every pet deserves love, care, and attention.</p>
+    </div>
+
+  </div>
+</ion-content>

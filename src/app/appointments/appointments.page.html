@@ -1,0 +1,183 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>🐾 Doctor Schedule</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="appointments-container">
+
+    <div class="page-heading">
+      <div class="heading-icon">📅</div>
+      <h1>Doctor Schedule</h1>
+      <p>Schedule and manage your pet's appointments.</p>
+    </div>
+
+    <div class="appointment-form">
+
+      <div class="section-title">
+        <span>🩺</span>
+        <h2>Book an Appointment</h2>
+      </div>
+
+      <p class="form-description">
+        Complete the details below to schedule a visit.
+      </p>
+
+      <ion-item>
+        <ion-select
+          label="Pet Name"
+          labelPlacement="stacked"
+          placeholder="Select your pet"
+          [(ngModel)]="petName">
+
+          <ion-select-option
+            *ngFor="let pet of pets"
+            [value]="pet.petName">
+            {{ pet.petName }}
+          </ion-select-option>
+
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-select
+          label="Doctor"
+          labelPlacement="stacked"
+          placeholder="Choose a doctor"
+          [(ngModel)]="doctorName">
+
+          <ion-select-option value="Dr. Maria Santos">
+            Dr. Maria Santos
+          </ion-select-option>
+
+          <ion-select-option value="Dr. John Cruz">
+            Dr. John Cruz
+          </ion-select-option>
+
+          <ion-select-option value="Dr. Angela Reyes">
+            Dr. Angela Reyes
+          </ion-select-option>
+
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Appointment Date"
+          labelPlacement="stacked"
+          type="date"
+          [(ngModel)]="date">
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Appointment Time"
+          labelPlacement="stacked"
+          type="time"
+          [(ngModel)]="time">
+        </ion-input>
+      </ion-item>
+
+      <ion-button
+        expand="block"
+        class="save-button"
+        (click)="saveAppointment()">
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        Save Appointment
+      </ion-button>
+
+    </div>
+
+    <div class="appointment-list">
+
+      <div class="list-heading">
+        <div>
+          <h2>My Appointments</h2>
+          <p>View your scheduled visits.</p>
+        </div>
+        <span class="paw-decoration">🐾</span>
+      </div>
+
+      <div
+        class="empty-message"
+        *ngIf="appointments.length === 0">
+
+        <div class="empty-icon">📅</div>
+        <h3>No Appointments Yet</h3>
+        <p>Your scheduled appointments will appear here.</p>
+
+      </div>
+
+      <ion-card
+        class="appointment-card"
+        *ngFor="let appointment of appointments">
+
+        <ion-card-content>
+
+          <div class="appointment-card-header">
+            <div class="pet-avatar">🐾</div>
+            <div class="appointment-pet">
+              <h3>{{ appointment.petName }}</h3>
+              <p>Veterinary Appointment</p>
+            </div>
+          </div>
+
+          <div class="appointment-detail">
+            <span>🩺</span>
+            <div>
+              <small>Doctor</small>
+              <p>{{ appointment.doctorName }}</p>
+            </div>
+          </div>
+
+          <div class="appointment-detail">
+            <span>📅</span>
+            <div>
+              <small>Date</small>
+              <p>{{ appointment.date }}</p>
+            </div>
+          </div>
+
+          <div class="appointment-detail">
+            <span>🕒</span>
+            <div>
+              <small>Time</small>
+              <p>{{ appointment.time }}</p>
+            </div>
+          </div>
+
+          <ion-button
+            expand="block"
+            fill="outline"
+            color="danger"
+            class="delete-button"
+            (click)="deleteAppointment(appointment.id)">
+
+            <ion-icon name="trash-outline" slot="start"></ion-icon>
+            Delete Appointment
+
+          </ion-button>
+
+        </ion-card-content>
+
+      </ion-card>
+
+    </div>
+
+    <ion-button
+      expand="block"
+      fill="clear"
+      class="back-button"
+      routerLink="/dashboard">
+      ← Back to Dashboard
+    </ion-button>
+
+    <div class="form-footer">
+      <span>💜</span>
+      <p>Every pet deserves love and proper care.</p>
+    </div>
+
+  </div>
+</ion-content>

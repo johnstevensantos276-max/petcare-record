@@ -1,0 +1,269 @@
+ion-header ion-toolbar {
+  --background: #ffffff;
+  --color: #26356f;
+  --border-color: transparent;
+  padding: 6px 12px;
+}
+
+ion-content {
+  --background: #f0f5ff;
+}
+
+.appointments-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 22px 16px 30px;
+  box-sizing: border-box;
+}
+
+.page-heading {
+  text-align: center;
+  padding: 12px 8px 24px;
+}
+
+.heading-icon {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e1e8ff;
+  border-radius: 22px;
+  font-size: 34px;
+}
+
+.page-heading h1 {
+  margin: 0 0 8px;
+  color: #26356f;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.page-heading p,
+.form-description,
+.list-heading p {
+  margin: 0;
+  color: #7b86a5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.appointment-form {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(53, 76, 145, 0.08);
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.section-title span {
+  font-size: 24px;
+}
+
+.section-title h2 {
+  margin: 0;
+  color: #26356f;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.form-description {
+  margin-bottom: 16px;
+}
+
+.appointment-form ion-item {
+  --background: #f8faff;
+  --border-color: #e7ecf8;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  margin-top: 12px;
+  border: 1px solid #e7ecf8;
+  border-radius: 12px;
+}
+
+.save-button {
+  margin: 24px 0 4px;
+  min-height: 48px;
+  --background: #4059d9;
+  --background-hover: #3249bf;
+  --border-radius: 12px;
+  --box-shadow: 0 5px 12px rgba(64, 89, 217, 0.2);
+  font-weight: 700;
+  text-transform: none;
+}
+
+.appointment-list {
+  margin-top: 28px;
+}
+
+.list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.list-heading h2 {
+  margin: 0 0 5px;
+  color: #26356f;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.paw-decoration {
+  font-size: 28px;
+}
+
+.empty-message {
+  padding: 28px 18px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(53, 76, 145, 0.06);
+}
+
+.empty-icon {
+  font-size: 38px;
+}
+
+.empty-message h3 {
+  margin: 12px 0 8px;
+  color: #26356f;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.empty-message p {
+  margin: 0;
+  color: #7b86a5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.appointment-card {
+  margin: 0 0 16px;
+  overflow: hidden;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(53, 76, 145, 0.08);
+}
+
+.appointment-card ion-card-content {
+  padding: 18px;
+}
+
+.appointment-card-header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #eef1f8;
+}
+
+.pet-avatar {
+  width: 54px;
+  height: 54px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8edff;
+  border-radius: 17px;
+  font-size: 27px;
+}
+
+.appointment-pet h3 {
+  margin: 0 0 5px;
+  color: #26356f;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.appointment-pet p {
+  margin: 0;
+  color: #7b86a5;
+  font-size: 12px;
+}
+
+.appointment-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid #eef1f8;
+}
+
+.appointment-detail > span {
+  font-size: 20px;
+}
+
+.appointment-detail small {
+  display: block;
+  margin-bottom: 4px;
+  color: #8b94ad;
+  font-size: 11px;
+}
+
+.appointment-detail p {
+  margin: 0;
+  color: #35436f;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.delete-button {
+  margin-top: 18px;
+  --border-radius: 11px;
+  font-size: 13px;
+  text-transform: none;
+}
+
+.back-button {
+  margin-top: 18px;
+  --color: #4059d9;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: #7b86a5;
+  text-align: center;
+}
+
+.form-footer span {
+  font-size: 18px;
+}
+
+.form-footer p {
+  margin: 0;
+  font-size: 12px;
+}
+
+@media (max-width: 600px) {
+  .appointments-container {
+    padding: 18px 12px 26px;
+  }
+
+  .page-heading h1 {
+    font-size: 23px;
+  }
+
+  .appointment-form {
+    padding: 16px;
+  }
+}

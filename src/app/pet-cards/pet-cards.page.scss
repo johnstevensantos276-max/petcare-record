@@ -1,0 +1,70 @@
+.page-heading {
+  margin: 12px 4px 20px;
+
+  h1 {
+    margin-bottom: 6px;
+    color: #253675;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  p {
+    margin-top: 0;
+    color: #777;
+  }
+}
+
+.filter-item {
+  --background: #f0f5ff;
+  --border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.pet-card {
+  margin: 0 0 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(40, 60, 120, 0.09);
+
+  ion-card-title {
+    color: #4059d9;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  ion-card-header p {
+    margin-bottom: 0;
+    color: #777;
+  }
+
+  ion-card-content p {
+    margin: 12px 0;
+    color: #454545;
+    line-height: 1.5;
+  }
+
+  ion-badge {
+    margin-left: 5px;
+  }
+
+  ion-button {
+    margin-top: 18px;
+  }
+}
+
+.empty-state {
+  padding: 30px 12px;
+  text-align: center;
+
+  ion-icon {
+    font-size: 54px;
+    color: #4059d9;
+  }
+
+  h2 {
+    color: #253675;
+  }
+
+  p {
+    color: #777;
+  }
+}

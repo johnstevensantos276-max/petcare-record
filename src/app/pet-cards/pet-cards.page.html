@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start" fill="clear" color="light" (click)="goToDashboard()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+    <ion-title>Pet Cards</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="page-heading">
+    <h1>My Pets</h1>
+    <p>View and manage your pet records.</p>
+  </div>
+
+  <ion-item class="filter-item" lines="none">
+    <ion-label>Filter by type</ion-label>
+    <ion-select [(ngModel)]="selectedPetType" interface="popover">
+      <ion-select-option *ngFor="let type of petTypes" [value]="type">
+        {{ type }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="empty-state" *ngIf="filteredPets.length === 0">
+    <ion-icon name="paw-outline"></ion-icon>
+    <h2>No pets found</h2>
+    <p>Add a pet record or choose another filter.</p>
+    <ion-button (click)="goToRegistration()">Add Pet</ion-button>
+  </div>
+
+  <ion-card class="pet-card" *ngFor="let pet of filteredPets">
+    <ion-card-header>
+      <ion-card-title>{{ pet.petName }}</ion-card-title>
+      <p>{{ pet.petType || 'Pet type not specified' }}</p>
+    </ion-card-header>
+
+    <ion-card-content>
+      <p><strong>Breed:</strong> {{ pet.breed || 'Not specified' }}</p>
+      <p><strong>Birthday:</strong> {{ pet.birthday || 'Not specified' }}</p>
+      <p><strong>Owner:</strong> {{ pet.ownerName || 'Not specified' }}</p>
+      <p>
+        <strong>Vaccination:</strong>
+        <ion-badge [color]="isVaccinated(pet) ? 'success' : 'warning'">
+          {{ pet.vaccinationStatus || 'Not specified' }}
+        </ion-badge>
+      </p>
+      <p><strong>Medical Notes:</strong> {{ pet.medicalNotes || 'None' }}</p>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        color="danger"
+        (click)="deletePet(pet)">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Delete Record
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="block" (click)="goToRegistration()">
+    <ion-icon name="add-outline" slot="start"></ion-icon>
+    Register New Pet
+  </ion-button>
+</ion-content>
