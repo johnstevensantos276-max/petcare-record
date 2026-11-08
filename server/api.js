@@ -340,6 +340,27 @@ async function init() {
   await client.batch(INDEXES, 'write');
 }
 
+// A plain explanation of why the database cannot be used. Only the kind of
+// problem is shown, never the address or the token.
+function databaseProblem(error) {
+  const info = `${error.code || ''} ${error.message || ''}`;
+  const code = error.code ? ` (${error.code})` : '';
+
+  if (/(401|403)|unauthori[sz]ed|forbidden|JWT|auth/i.test(info)) {
+    return 'Database setup: TURSO_AUTH_TOKEN is wrong or expired.' + code;
+  }
+
+  if (/URL_|404|not found|ENOTFOUND|EAI_AGAIN|getaddrinfo|Invalid URL/i.test(info)) {
+    return 'Database setup: TURSO_DATABASE_URL is wrong.' + code;
+  }
+
+  if (/quota|limit|blocked|exceeded/i.test(info)) {
+    return 'Database setup: the Turso plan limit was reached.' + code;
+  }
+
+  return 'Database setup failed.' + (code || ` (${error.name || 'unknown'})`);
+}
+
 let ready;
 
 // Runs once per server start; tried again if it fails.
@@ -1139,7 +1160,14 @@ async function handle(req, res) {
   const pathname = forwarded === null ? url.pathname : '/api/' + forwarded;
 
   try {
-    await whenReady();
+    await whenReady().catch(error => {
+      if (error instanceof HttpError) {
+        throw error;
+      }
+
+      console.error('Database setup failed:', error);
+      throw new HttpError(503, databaseProblem(error));
+    });
 
     for (const r of routes) {
       const match = r.method === req.method && r.regex.exec(pathname);
