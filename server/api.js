@@ -371,6 +371,47 @@ function databaseProblem(error) {
   return `Database setup failed.${code || ` (${error.name || 'unknown'})`}${httpStatus}: ${reason}`;
 }
 
+// Asks Turso directly and describes only the shape of the settings, never
+// their values, so a failed setup can be diagnosed.
+async function probeRemote() {
+  if (!REMOTE_URL) {
+    return 'local';
+  }
+
+  const token = process.env.TURSO_AUTH_TOKEN || '';
+  let shape;
+  let base;
+
+  try {
+    const url = new URL(REMOTE_URL.trim());
+    base = `https://${url.host}`;
+    shape = `url=${url.protocol}${url.pathname === '/' ? '' : '+path'}${url.search ? '+query' : ''}` +
+      ` host=${url.host.endsWith('.turso.io') ? 'turso.io' : 'other'}`;
+  } catch {
+    return 'url=unparsable';
+  }
+
+  shape += ` token=${token.length}ch/${token.split('.').length}parts` +
+    `${token !== token.trim() ? '/spaces' : ''}`;
+
+  try {
+    const response = await fetch(`${base}/v2/pipeline`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        requests: [{ type: 'execute', stmt: { sql: 'SELECT 1' } }, { type: 'close' }]
+      })
+    });
+    const body = (await response.text())
+      .replace(/[w.-]+.turso.io/g, '[database]')
+      .replace(/[w-]{24,}/g, '[hidden]')
+      .slice(0, 140);
+    return `${shape} probe=${response.status} ${body}`;
+  } catch (error) {
+    return `${shape} probe=${error.name}`;
+  }
+}
+
 let ready;
 
 // Runs once per server start; tried again if it fails.
@@ -1170,13 +1211,13 @@ async function handle(req, res) {
   const pathname = forwarded === null ? url.pathname : '/api/' + forwarded;
 
   try {
-    await whenReady().catch(error => {
+    await whenReady().catch(async error => {
       if (error instanceof HttpError) {
         throw error;
       }
 
       console.error('Database setup failed:', error);
-      throw new HttpError(503, databaseProblem(error));
+      throw new HttpError(503, `${databaseProblem(error)} | ${await probeRemote()}`);
     });
 
     for (const r of routes) {
