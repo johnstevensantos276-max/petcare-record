@@ -361,7 +361,14 @@ function databaseProblem(error) {
     return 'Database setup: the Turso plan limit was reached.' + code;
   }
 
-  return 'Database setup failed.' + (code || ` (${error.name || 'unknown'})`);
+  // Turso's own reason, with anything that looks like a key or address removed.
+  const reason = String(error.message || '')
+    .replace(/[w.-]+.turso.io/g, '[database]')
+    .replace(/[w-]{24,}/g, '[hidden]')
+    .slice(0, 160);
+  const httpStatus = error.cause?.status ? ` HTTP ${error.cause.status}` : '';
+
+  return `Database setup failed.${code || ` (${error.name || 'unknown'})`}${httpStatus}: ${reason}`;
 }
 
 let ready;
