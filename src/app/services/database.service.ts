@@ -677,7 +677,14 @@ export class DatabaseService {
     }
 
     const text = await response.text();
-    const data = text ? JSON.parse(text) : undefined;
+    let data;
+
+    try {
+      data = text ? JSON.parse(text) : undefined;
+    } catch {
+      // Not an answer from the PetCare server (e.g. a hosting error page).
+      data = undefined;
+    }
 
     if (!response.ok) {
       // Logged out on the server (e.g. password changed on another device).
@@ -685,7 +692,10 @@ export class DatabaseService {
         this.saveSession(null);
       }
 
-      throw new ApiError(data?.error || 'Something went wrong.', response.status);
+      throw new ApiError(
+        data?.error || 'The PetCare server is not available right now. Please try again later.',
+        response.status
+      );
     }
 
     return data as T;
