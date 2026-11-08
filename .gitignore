@@ -68,3 +68,16 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# PetCare SQLite database (server/server.js)
+/server/*.db
+/server/*.db-*
+
+# Secret keys for Google/Facebook login and email (see config.example.json)
+/server/config.json
+
+# Key that encrypts the data in petcare.db: keep private, back up with it
+/server/secret.key
+
+# Old copy of the source, not needed on GitHub
+/src_backup_old

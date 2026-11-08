@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="270" height="165" viewBox="0 0 270 165">
+  <!-- ground shadow -->
+  <ellipse cx="135" cy="160" rx="128" ry="5" fill="#000" fill-opacity="0.12"/>
+
+  <!-- ===== Rabbit (left, behind the dog) ===== -->
+  <g>
+    <ellipse cx="19" cy="66" rx="6.5" ry="20" fill="#ece6df" transform="rotate(-12 19 66)"/>
+    <ellipse cx="19" cy="67" rx="3.2" ry="14" fill="#f2a7b5" transform="rotate(-12 19 67)"/>
+    <ellipse cx="35" cy="66" rx="6.5" ry="20" fill="#ece6df" transform="rotate(12 35 66)"/>
+    <ellipse cx="35" cy="67" rx="3.2" ry="14" fill="#f2a7b5" transform="rotate(12 35 67)"/>
+    <ellipse cx="27" cy="134" rx="22" ry="23" fill="#ece6df"/>
+    <ellipse cx="27" cy="140" rx="11" ry="14" fill="#ffffff"/>
+    <ellipse cx="16" cy="156" rx="8" ry="4.5" fill="#ffffff"/>
+    <ellipse cx="38" cy="156" rx="8" ry="4.5" fill="#ffffff"/>
+    <circle cx="27" cy="100" r="18" fill="#ece6df"/>
+    <circle cx="20.5" cy="98" r="2.8" fill="#3b2a20"/>
+    <circle cx="33.5" cy="98" r="2.8" fill="#3b2a20"/>
+    <circle cx="21.3" cy="97" r="0.9" fill="#ffffff"/>
+    <circle cx="34.3" cy="97" r="0.9" fill="#ffffff"/>
+    <ellipse cx="27" cy="105" rx="2.4" ry="1.8" fill="#e8707a"/>
+    <path d="M27 106.5 Q25 110 22.5 108.5 M27 106.5 Q29 110 31.5 108.5" fill="none" stroke="#3b2a20" stroke-width="1.2" stroke-linecap="round"/>
+    <ellipse cx="16" cy="104" rx="3.2" ry="2" fill="#f2a7b5" fill-opacity="0.7"/>
+    <ellipse cx="38" cy="104" rx="3.2" ry="2" fill="#f2a7b5" fill-opacity="0.7"/>
+  </g>
+
+  <!-- Dog, cat and hearts, moved right to make room -->
+  <g transform="translate(30 0)">
+    <!-- floating hearts -->
+    <g fill="#ffffff" fill-opacity="0.85">
+      <path transform="translate(112 22) scale(1.1)" d="M0 7 C-10 -1 -8 -9 -3 -9 C-1 -9 0 -7 0 -6 C0 -7 1 -9 3 -9 C8 -9 10 -1 0 7 Z"/>
+      <path transform="translate(128 8) scale(0.7)" d="M0 7 C-10 -1 -8 -9 -3 -9 C-1 -9 0 -7 0 -6 C0 -7 1 -9 3 -9 C8 -9 10 -1 0 7 Z"/>
+    </g>
+
+    <!-- ===== Dog ===== -->
+    <path d="M104 130 C122 122 124 102 114 96" fill="none" stroke="#d9a35f" stroke-width="10" stroke-linecap="round"/>
+    <ellipse cx="70" cy="126" rx="38" ry="30" fill="#f3c98b"/>
+    <ellipse cx="70" cy="130" rx="18" ry="21" fill="#fff3df"/>
+    <rect x="50" y="130" width="13" height="27" rx="6.5" fill="#f3c98b"/>
+    <rect x="77" y="130" width="13" height="27" rx="6.5" fill="#f3c98b"/>
+    <ellipse cx="56.5" cy="156" rx="8" ry="4.5" fill="#fff3df"/>
+    <ellipse cx="83.5" cy="156" rx="8" ry="4.5" fill="#fff3df"/>
+    <rect x="50" y="97" width="40" height="7" rx="3.5" fill="#e85d5d"/>
+    <circle cx="70" cy="108" r="4.5" fill="#ffd25e"/>
+    <ellipse cx="44" cy="70" rx="11" ry="23" fill="#c98b4a" transform="rotate(22 44 70)"/>
+    <ellipse cx="96" cy="70" rx="11" ry="23" fill="#c98b4a" transform="rotate(-22 96 70)"/>
+    <circle cx="70" cy="70" r="30" fill="#f3c98b"/>
+    <ellipse cx="70" cy="85" rx="16" ry="12" fill="#fff3df"/>
+    <circle cx="59" cy="65" r="4.2" fill="#3b2a20"/>
+    <circle cx="81" cy="65" r="4.2" fill="#3b2a20"/>
+    <circle cx="60.3" cy="63.6" r="1.4" fill="#ffffff"/>
+    <circle cx="82.3" cy="63.6" r="1.4" fill="#ffffff"/>
+    <ellipse cx="70" cy="79" rx="6" ry="4.5" fill="#3b2a20"/>
+    <ellipse cx="70" cy="94" rx="4.2" ry="5" fill="#e8707a"/>
+    <path d="M63 87 Q66.5 91 70 87 Q73.5 91 77 87" fill="none" stroke="#3b2a20" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="52" cy="76" rx="4" ry="2.4" fill="#f2a7b5" fill-opacity="0.7"/>
+    <ellipse cx="88" cy="76" rx="4" ry="2.4" fill="#f2a7b5" fill-opacity="0.7"/>
+
+    <!-- ===== Cat ===== -->
+    <path d="M184 150 C214 142 212 104 196 98" fill="none" stroke="#8a8f98" stroke-width="9" stroke-linecap="round"/>
+    <ellipse cx="162" cy="131" rx="28" ry="26" fill="#8a8f98"/>
+    <ellipse cx="162" cy="136" rx="12" ry="16" fill="#f4f4f4"/>
+    <ellipse cx="152" cy="155" rx="8" ry="5" fill="#f4f4f4"/>
+    <ellipse cx="172" cy="155" rx="8" ry="5" fill="#f4f4f4"/>
+    <polygon points="141,80 143,55 158,70" fill="#8a8f98"/>
+    <polygon points="183,80 181,55 166,70" fill="#8a8f98"/>
+    <polygon points="145,74 146,62 153,70" fill="#f2a7b5"/>
+    <polygon points="179,74 178,62 171,70" fill="#f2a7b5"/>
+    <circle cx="162" cy="90" r="24" fill="#8a8f98"/>
+    <path d="M156 68 L157 76 M162 67 L162 76 M168 68 L167 76" stroke="#6f747d" stroke-width="2.4" stroke-linecap="round"/>
+    <ellipse cx="153" cy="88" rx="3.6" ry="5" fill="#2d3b40"/>
+    <ellipse cx="171" cy="88" rx="3.6" ry="5" fill="#2d3b40"/>
+    <circle cx="154" cy="86.3" r="1.2" fill="#ffffff"/>
+    <circle cx="172" cy="86.3" r="1.2" fill="#ffffff"/>
+    <polygon points="158.5,96 165.5,96 162,100" fill="#f2a7b5"/>
+    <path d="M162 100 Q159 104 155.5 101.5 M162 100 Q165 104 168.5 101.5" fill="none" stroke="#3b2a20" stroke-width="1.5" stroke-linecap="round"/>
+    <g stroke="#f4f4f4" stroke-width="1.3" stroke-linecap="round">
+      <path d="M150 98 L136 95 M150 101 L137 102"/>
+      <path d="M174 98 L188 95 M174 101 L187 102"/>
+    </g>
+  </g>
+
+  <!-- ===== Hamster (in front, between the dog and the cat) ===== -->
+  <g>
+    <circle cx="142" cy="136" r="4.5" fill="#e09a52"/>
+    <circle cx="142" cy="136" r="2.2" fill="#f2a7b5"/>
+    <circle cx="162" cy="136" r="4.5" fill="#e09a52"/>
+    <circle cx="162" cy="136" r="2.2" fill="#f2a7b5"/>
+    <ellipse cx="152" cy="148" rx="16" ry="12.5" fill="#e9a65a"/>
+    <ellipse cx="152" cy="153" rx="10" ry="7" fill="#fff3df"/>
+    <ellipse cx="145" cy="159" rx="4" ry="2.2" fill="#f2a7b5"/>
+    <ellipse cx="159" cy="159" rx="4" ry="2.2" fill="#f2a7b5"/>
+    <circle cx="146.5" cy="144" r="2" fill="#3b2a20"/>
+    <circle cx="157.5" cy="144" r="2" fill="#3b2a20"/>
+    <circle cx="147.1" cy="143.4" r="0.7" fill="#ffffff"/>
+    <circle cx="158.1" cy="143.4" r="0.7" fill="#ffffff"/>
+    <ellipse cx="152" cy="148" rx="1.6" ry="1.2" fill="#e8707a"/>
+    <ellipse cx="142.5" cy="149" rx="3" ry="2" fill="#f2a7b5" fill-opacity="0.7"/>
+    <ellipse cx="161.5" cy="149" rx="3" ry="2" fill="#f2a7b5" fill-opacity="0.7"/>
+  </g>
+
+  <!-- ===== Bird (flying, top right) ===== -->
+  <g transform="translate(244 34)">
+    <polygon points="-12,2 -21,-4 -20,6" fill="#f3b63f"/>
+    <ellipse cx="0" cy="2" rx="12" ry="9" fill="#ffd25e"/>
+    <path d="M-6 0 Q-1 -12 7 -3 Q1 3 -6 0 Z" fill="#f3b63f"/>
+    <circle cx="9" cy="-4" r="7" fill="#ffd25e"/>
+    <circle cx="11" cy="-5.5" r="1.6" fill="#3b2a20"/>
+    <polygon points="15.5,-4.5 21,-2.5 15.5,-0.5" fill="#f08c3a"/>
+    <ellipse cx="6" cy="-1" rx="2" ry="1.2" fill="#f2a7b5" fill-opacity="0.8"/>
+  </g>
+</svg>

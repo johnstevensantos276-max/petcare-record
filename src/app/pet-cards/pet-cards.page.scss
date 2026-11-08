@@ -1,70 +1,267 @@
-.page-heading {
-  margin: 12px 4px 20px;
-
-  h1 {
-    margin-bottom: 6px;
-    color: #253675;
-    font-size: 26px;
-    font-weight: 700;
-  }
-
-  p {
-    margin-top: 0;
-    color: #777;
-  }
+.page-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 24px 16px;
 }
 
-.filter-item {
-  --background: #f0f5ff;
-  --border-radius: 12px;
-  margin-bottom: 18px;
+/* Header */
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
 }
 
+.top-row h1 {
+  margin: 0;
+  color: var(--pc-text);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 8px 0 20px;
+  color: var(--pc-muted);
+  font-size: 14px;
+}
+
+/* Back button */
+.back-button {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: 14px;
+  color: var(--pc-green);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(30, 50, 60, 0.06);
+}
+
+.back-arrow {
+  display: block;
+  color: var(--pc-green);
+  font-family: Arial, sans-serif;
+  font-size: 27px;
+  line-height: 1;
+}
+
+/* Filters */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: 17px;
+}
+
+.filter-field {
+  display: flex;
+  flex: 1;
+  min-width: 130px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-field label {
+  color: var(--pc-text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.filter-field select {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 10px;
+  background: var(--pc-bg);
+  border: 1px solid var(--pc-border);
+  border-radius: 10px;
+  color: var(--pc-text);
+  font-size: 14px;
+}
+
+.reset-button {
+  --color: var(--pc-green);
+  --border-color: var(--pc-tint-strong);
+  --border-radius: 11px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Pet cards */
 .pet-card {
-  margin: 0 0 16px;
+  margin: 14px 0;
+  border: 1px solid var(--pc-border);
+  border-radius: 18px;
+  background: var(--pc-surface);
+  box-shadow: 0 4px 14px rgba(30, 50, 60, 0.05);
+  overflow: hidden;
+}
+
+.pet-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pet-icon {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(40, 60, 120, 0.09);
+  background: var(--pc-tint);
+  font-size: 27px;
+}
 
-  ion-card-title {
-    color: #4059d9;
-    font-size: 20px;
-    font-weight: 700;
+.pet-main-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pet-main-info h2 {
+  margin: 0 0 5px;
+  color: var(--pc-text);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.pet-main-info p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 13px;
+}
+
+.chevron {
+  flex-shrink: 0;
+  color: #8fb4c2;
+  font-size: 24px;
+}
+
+/* Pet information */
+.pet-info {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--pc-border);
+}
+
+.pet-info p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 10px 0;
+  color: var(--pc-muted);
+  font-size: 13px;
+}
+
+.pet-info strong {
+  color: var(--pc-text);
+}
+
+/* Vaccination badges */
+.pet-info ion-badge {
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: none;
+  box-shadow: none;
+}
+
+/* Vaccinated - soft green */
+.pet-info ion-badge[color="success"] {
+  --background: var(--pc-tint-strong);
+  --color: var(--pc-green-dark);
+}
+
+/* Not Vaccinated - soft peach */
+.pet-info ion-badge[color="warning"] {
+  --background: var(--pc-danger-tint);
+  --color: var(--pc-danger);
+}
+
+.vaccine-list {
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vaccine-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: var(--pc-tint-strong);
+  color: var(--pc-muted);
+  font-size: 12px;
+}
+
+.vaccine-list .vaccine-date {
+  color: var(--pc-green-dark);
+  font-weight: 600;
+}
+
+.view-details {
+  margin: 14px 0 0;
+  color: var(--pc-green);
+  font-size: 12px;
+  text-align: right;
+}
+
+/* Empty state */
+.empty-state {
+  padding: 35px 16px;
+  text-align: center;
+  color: var(--pc-text);
+}
+
+.empty-icon {
+  font-size: 42px;
+}
+
+.empty-state h2 {
+  margin-bottom: 8px;
+  font-size: 19px;
+}
+
+.empty-state p {
+  color: var(--pc-muted);
+  font-size: 14px;
+}
+
+/* Mobile layout */
+@media (max-width: 480px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  ion-card-header p {
-    margin-bottom: 0;
-    color: #777;
-  }
-
-  ion-card-content p {
-    margin: 12px 0;
-    color: #454545;
-    line-height: 1.5;
-  }
-
-  ion-badge {
-    margin-left: 5px;
-  }
-
-  ion-button {
-    margin-top: 18px;
+  .filter-field {
+    width: 100%;
   }
 }
 
-.empty-state {
-  padding: 30px 12px;
-  text-align: center;
+.pet-icon {
+  overflow: hidden;
+}
 
-  ion-icon {
-    font-size: 54px;
-    color: #4059d9;
-  }
-
-  h2 {
-    color: #253675;
-  }
-
-  p {
-    color: #777;
-  }
+.pet-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

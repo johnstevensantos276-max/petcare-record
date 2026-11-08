@@ -1,0 +1,166 @@
+.memorial-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+  background: rgba(40, 30, 45, 0.55);
+  animation: memorial-fade 0.6s ease-out both;
+}
+
+/* Hearts drifting slowly down */
+.hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hearts ion-icon {
+  position: absolute;
+  top: -30px;
+  color: #f3c6d6;
+  opacity: 0.75;
+  animation-name: heart-drift;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.memorial-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  padding: 26px 22px 22px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: var(--pc-surface);
+  color: var(--pc-text);
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: memorial-rise 0.7s ease-out both;
+}
+
+.memorial-photos {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.memorial-photo {
+  width: 96px;
+  height: 96px;
+  margin: 0 -10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 4px solid var(--pc-surface);
+  border-radius: 50%;
+  background: #f8eef3;
+  color: #c76b8f;
+  font-size: 42px;
+  box-shadow: 0 0 0 3px #e2a6bf;
+}
+
+.memorial-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85);
+}
+
+.memorial-badge {
+  position: absolute;
+  right: calc(50% - 64px);
+  bottom: -4px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--pc-surface);
+  border-radius: 50%;
+  background: #c76b8f;
+  color: #ffffff;
+  font-size: 18px;
+  animation: heart-beat 2.4s ease-in-out infinite;
+}
+
+.memorial-label {
+  margin: 0;
+  color: #c76b8f;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.memorial-card h2 {
+  margin: 6px 0 8px;
+  color: var(--pc-green-dark);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.memorial-years {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.memorial-note {
+  margin: 10px 0 18px;
+  color: var(--pc-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.memorial-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c98aa8, var(--pc-green));
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(199, 107, 143, 0.3);
+}
+
+@keyframes memorial-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes memorial-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes heart-drift {
+  0% { transform: translate(0, 0) rotate(-10deg); opacity: 0; }
+  10% { opacity: 0.75; }
+  50% { transform: translate(18px, 55vh) rotate(10deg); }
+  100% { transform: translate(-12px, 110vh) rotate(-8deg); opacity: 0; }
+}
+
+@keyframes heart-beat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hearts {
+    display: none;
+  }
+
+  .memorial-badge {
+    animation: none;
+  }
+}

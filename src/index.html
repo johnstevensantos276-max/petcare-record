@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Ionic App</title>
+  <title>PetCare Record</title>
 
   <base href="/" />
 
@@ -12,7 +12,79 @@
   <meta name="format-detection" content="telephone=no" />
   <meta name="msapplication-tap-highlight" content="no" />
 
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/jrr-logo.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icon/jrr-32.png" />
+  <link rel="apple-touch-icon" href="assets/icon/jrr-180.png" />
+
+  <!-- Lets Chrome/Edge install PetCare as a desktop app with the JRR icon -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#4f8fa8" />
+
+  <!-- Dark mode chosen before: turn it on now, so the page never flashes light -->
+  <script>
+    try {
+      if (localStorage.getItem('petcareTheme') === 'dark') {
+        document.documentElement.classList.add('ion-palette-dark');
+      }
+    } catch (e) {}
+  </script>
+
+  <!-- Splash screen: shown right away, removed by AppComponent -->
+  <style>
+    #splash {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: linear-gradient(160deg, #eaf6f9, #d4edf2);
+      font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      transition: opacity 0.4s ease, visibility 0.4s;
+    }
+
+    .ion-palette-dark #splash {
+      background: linear-gradient(160deg, #0e212a, #16303b);
+    }
+
+    .ion-palette-dark #splash p {
+      color: #9fd3e6;
+    }
+
+    #splash.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #splash img {
+      width: 132px;
+      height: 132px;
+      border-radius: 31px;
+      box-shadow: 0 14px 34px rgba(30, 50, 60, 0.22);
+      animation: splash-pop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2) both;
+    }
+
+    #splash p {
+      margin: 0;
+      color: #3d7a92;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      animation: splash-fade 0.6s 0.25s ease-out both;
+    }
+
+    @keyframes splash-pop {
+      from { opacity: 0; transform: scale(0.6); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes splash-fade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+  </style>
 
   <!-- add to homescreen for ios -->
   <meta name="mobile-web-app-capable" content="yes" />
@@ -20,7 +92,16 @@
 </head>
 
 <body>
+  <div id="splash" aria-hidden="true">
+    <img src="assets/images/jrr-logo.svg" alt="" />
+    <p>PetCare Record</p>
+  </div>
   <app-root></app-root>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => undefined);
+    }
+  </script>
 </body>
 
 </html>

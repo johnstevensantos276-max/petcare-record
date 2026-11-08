@@ -1,114 +1,324 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>🐾 Pet Registration</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <div class="registration-container">
+<ion-content [fullscreen]="true">
+  <div class="registration-page">
 
-    <div class="page-heading">
-      <div class="heading-icon">🐶</div>
-      <h1>Register Your Pet</h1>
-      <p>Add your pet's details to keep their records organized.</p>
-    </div>
+    <header class="page-header">
+      <button
+        type="button"
+        class="back-button"
+        (click)="routerBack()"
+        [attr.aria-label]="editingId ? 'Back to pet details' : 'Back to dashboard'">
 
-    <div class="registration-form">
-      <div class="form-section-title">
-        <span>🐾</span>
-        <h2>Pet Information</h2>
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+
+      <div class="header-text">
+        <h1>{{ editingId ? 'Edit Pet Record' : 'Pet Registration' }}</h1>
+        <p>{{ editingId ? "Update your pet's information" : "Register your pet's information" }}</p>
       </div>
 
-      <ion-item>
-        <ion-input
-          label="Pet Name"
-          labelPlacement="stacked"
-          placeholder="Enter your pet's name"
-          [(ngModel)]="petName">
-        </ion-input>
-      </ion-item>
+      <img class="pets-art" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    </header>
 
-      <ion-item>
-        <ion-input
-          label="Birthday"
-          labelPlacement="stacked"
-          type="date"
-          [(ngModel)]="birthday">
-        </ion-input>
-      </ion-item>
+    <section class="form-card">
 
-      <ion-item>
-        <ion-select
-          label="Pet Type"
-          labelPlacement="stacked"
-          placeholder="Select pet type"
-          [(ngModel)]="petType">
-          <ion-select-option value="Dog">Dog</ion-select-option>
-          <ion-select-option value="Cat">Cat</ion-select-option>
-          <ion-select-option value="Bird">Bird</ion-select-option>
-          <ion-select-option value="Rabbit">Rabbit</ion-select-option>
-          <ion-select-option value="Other">Other</ion-select-option>
-        </ion-select>
-      </ion-item>
+      <div class="form-title">
+        <div class="form-icon"><ion-icon name="paw"></ion-icon></div>
+        <div>
+          <h2>Pet Information</h2>
+          <p>{{ editingId ? 'Change the details you want to update.' : 'Fill in the details below.' }}</p>
+        </div>
+      </div>
 
-      <ion-item>
-        <ion-input
-          label="Breed"
-          labelPlacement="stacked"
-          placeholder="Enter breed"
-          [(ngModel)]="breed">
-        </ion-input>
-      </ion-item>
+      <form (ngSubmit)="savePet()">
 
-      <ion-item>
-        <ion-input
-          label="Owner Name"
-          labelPlacement="stacked"
-          placeholder="Enter owner's name"
-          [(ngModel)]="ownerName">
-        </ion-input>
-      </ion-item>
+        <!-- Pet photo -->
+        <div class="photo-picker">
+          <div class="photo-preview">
+            <img *ngIf="photo; else noPhoto" [src]="photo" alt="Pet photo">
+            <ng-template #noPhoto><ion-icon name="paw"></ion-icon></ng-template>
+          </div>
 
-      <ion-item>
-        <ion-select
-          label="Vaccination Status"
-          labelPlacement="stacked"
-          placeholder="Select status"
-          [(ngModel)]="vaccinationStatus">
-          <ion-select-option value="Vaccinated">Vaccinated</ion-select-option>
-          <ion-select-option value="Not Vaccinated">Not Vaccinated</ion-select-option>
-        </ion-select>
-      </ion-item>
+          <div class="photo-actions">
+            <button type="button" class="photo-button" (click)="openCamera()">
+              <ion-icon name="camera-outline"></ion-icon>
+              Take Photo
+            </button>
 
-      <ion-item class="notes-item">
-        <ion-textarea
-          label="Medical Notes"
-          labelPlacement="stacked"
-          placeholder="Enter medical notes (optional)"
-          [autoGrow]="true"
-          [(ngModel)]="medicalNotes">
-        </ion-textarea>
-      </ion-item>
+            <button type="button" class="photo-button secondary" (click)="galleryInput.click()">
+              <ion-icon name="image-outline"></ion-icon>
+              Choose Photo
+            </button>
 
-      <ion-button
-        expand="block"
-        class="save-button"
-        (click)="savePet()">
-        Save Pet Record
-      </ion-button>
+            <button
+              *ngIf="photo"
+              type="button"
+              class="photo-remove"
+              (click)="photo = ''">
+              Remove photo
+            </button>
+          </div>
 
-      <ion-button
-        expand="block"
-        fill="clear"
-        class="back-button"
-        routerLink="/dashboard">
-        Back to Dashboard
-      </ion-button>
-    </div>
+          <input
+            #galleryInput
+            type="file"
+            accept="image/*"
+            hidden
+            (change)="onPhotoSelected($event)">
 
-    <div class="form-footer">
-      <span>💜</span>
-      <p>Every pet deserves love and proper care.</p>
+          <!-- Used when the browser can't open a live camera preview -->
+          <input
+            #captureInput
+            type="file"
+            accept="image/*"
+            capture="environment"
+            hidden
+            (change)="onPhotoSelected($event)">
+        </div>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Pet Name *
+          </ion-label>
+
+          <ion-input
+            name="petName"
+            [(ngModel)]="petName"
+            placeholder="Enter pet name"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Pet Type *
+          </ion-label>
+
+          <ion-select
+            name="petType"
+            [(ngModel)]="petType"
+            placeholder="Select pet type"
+            required>
+
+            <ion-select-option value="Dog">
+              Dog
+            </ion-select-option>
+
+            <ion-select-option value="Cat">
+              Cat
+            </ion-select-option>
+
+            <ion-select-option value="Bird">
+              Bird
+            </ion-select-option>
+
+            <ion-select-option value="Rabbit">
+              Rabbit
+            </ion-select-option>
+
+            <ion-select-option value="Other">
+              Other
+            </ion-select-option>
+
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="petType === 'Other'">
+          <ion-label position="stacked">
+            Specify Pet Type *
+          </ion-label>
+
+          <ion-input
+            name="otherPetType"
+            [(ngModel)]="otherPetType"
+            placeholder="e.g. Hamster, Turtle, Fish"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Breed
+          </ion-label>
+
+          <ion-input
+            name="breed"
+            [(ngModel)]="breed"
+            placeholder="Enter breed (optional)">
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Birthday *
+          </ion-label>
+
+          <ion-input
+            type="date"
+            name="birthday"
+            [(ngModel)]="birthday"
+            [max]="today"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Owner Name *
+          </ion-label>
+
+          <ion-input
+            name="ownerName"
+            [(ngModel)]="ownerName"
+            placeholder="Enter owner's name"
+            required>
+          </ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">
+            Vaccination Status *
+          </ion-label>
+
+          <ion-select
+            name="vaccinationStatus"
+            [(ngModel)]="vaccinationStatus"
+            (ionChange)="onVaccinationStatusChange()"
+            placeholder="Select status"
+            required>
+
+            <ion-select-option value="Vaccinated">
+              Vaccinated
+            </ion-select-option>
+
+            <ion-select-option value="Not Vaccinated">
+              Not Vaccinated
+            </ion-select-option>
+
+          </ion-select>
+        </ion-item>
+
+        <section
+          class="vaccine-section"
+          *ngIf="vaccinationStatus === 'Vaccinated'">
+
+          <div class="vaccine-section-title">
+            <h3>Vaccines Given</h3>
+            <p>List each vaccine, what it is for, and when it was given.</p>
+          </div>
+
+          <div
+            class="vaccine-entry"
+            *ngFor="let vaccine of vaccines; let i = index">
+
+            <div class="vaccine-entry-header">
+              <strong>Vaccine {{ i + 1 }}</strong>
+
+              <button
+                type="button"
+                class="remove-vaccine"
+                (click)="removeVaccine(i)"
+                aria-label="Remove vaccine">
+
+                <ion-icon name="trash-outline"></ion-icon>
+              </button>
+            </div>
+
+            <ion-item>
+              <ion-label position="stacked">
+                Vaccine Name *
+              </ion-label>
+
+              <ion-input
+                [name]="'vaccineName' + i"
+                [(ngModel)]="vaccine.name"
+                placeholder="e.g. Anti-Rabies, 5-in-1">
+              </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">
+                Purpose
+              </ion-label>
+
+              <ion-input
+                [name]="'vaccinePurpose' + i"
+                [(ngModel)]="vaccine.purpose"
+                placeholder="e.g. Protection against rabies">
+              </ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">
+                Date Given *
+              </ion-label>
+
+              <ion-input
+                type="date"
+                [name]="'vaccineDate' + i"
+                [(ngModel)]="vaccine.date"
+                [max]="today">
+              </ion-input>
+            </ion-item>
+          </div>
+
+          <button
+            class="add-vaccine-button"
+            type="button"
+            (click)="addVaccine()">
+
+            <ion-icon name="add-outline"></ion-icon>
+            Add Vaccine
+          </button>
+        </section>
+
+        <button
+          class="save-button"
+          type="submit">
+
+          <ion-icon name="save-outline"></ion-icon>
+          {{ editingId ? 'Update Pet Record' : 'Save Pet Record' }}
+        </button>
+
+        <button
+          class="cancel-button"
+          type="button"
+          (click)="routerBack()">
+
+          Cancel
+        </button>
+
+      </form>
+    </section>
+
+    <div class="bottom-space"></div>
+
+    <!-- Live camera -->
+    <div class="camera-overlay" *ngIf="cameraOpen">
+      <div class="camera-box">
+        <video #cameraVideo autoplay playsinline muted></video>
+
+        <div class="camera-controls">
+          <button type="button" class="camera-cancel" (click)="closeCamera()">
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            class="camera-shutter"
+            aria-label="Capture photo"
+            (click)="capturePhoto()">
+          </button>
+
+          <button
+            type="button"
+            class="camera-switch"
+            aria-label="Switch camera"
+            (click)="switchCamera()">
+            <ion-icon name="camera-reverse-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
     </div>
 
   </div>

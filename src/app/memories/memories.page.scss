@@ -1,0 +1,163 @@
+.memories-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  color: var(--pc-text);
+}
+
+/* Soft rose-and-blue hero, gentler than the other pages */
+.memories-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #c98aa8, var(--pc-green-light));
+  color: #ffffff;
+}
+
+.hero-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.22);
+  font-size: 24px;
+}
+
+.memories-hero h1 {
+  margin: 0 0 4px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.memories-hero p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+.empty-state {
+  margin-top: 18px;
+  padding: 28px 20px;
+  border-radius: 16px;
+  background: var(--pc-surface);
+  text-align: center;
+  box-shadow: var(--pc-shadow);
+}
+
+.empty-icon {
+  font-size: 40px;
+  color: #c76b8f;
+}
+
+.empty-state h3 {
+  margin: 8px 0 6px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.memory-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (min-width: 700px) {
+  .memory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.memory-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid #ecdde5;
+  border-radius: 18px;
+  background: var(--pc-surface);
+  color: var(--pc-text);
+  font-family: inherit;
+  text-align: left;
+  box-shadow: var(--pc-shadow);
+  cursor: pointer;
+}
+
+.memory-photo {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 3px solid #f3e4ec;
+  border-radius: 50%;
+  background: #f8eef3;
+  color: #c76b8f;
+  font-size: 30px;
+}
+
+.memory-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Gentle, slightly faded look for memorial photos */
+  filter: saturate(0.85);
+}
+
+.memory-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.memory-info h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.memory-years {
+  margin: 2px 0;
+  color: #9c5a78;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.memory-type {
+  margin: 0 0 6px;
+  color: var(--pc-muted);
+  font-size: 13px;
+}
+
+.memory-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.memory-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--pc-tint);
+  color: var(--pc-green-dark);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.memory-arrow {
+  flex-shrink: 0;
+  color: #b9a3ae;
+  font-size: 20px;
+}

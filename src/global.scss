@@ -33,5 +33,257 @@
  */
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import '@ionic/angular/css/palettes/dark.system.css';
+/* Dark mode: on when <html> has the "ion-palette-dark" class (ThemeService). */
+@import "@ionic/angular/css/palettes/dark.class.css";
+/* @import '@ionic/angular/css/palettes/dark.system.css'; */
+
+/* Shared PetCare look (same colors as the Dashboard) */
+/* Transparent so the shared backdrop with the floating logos shows through */
+ion-content {
+  --background: transparent;
+  --color: var(--pc-text);
+}
+
+ion-toolbar {
+  --background: var(--pc-green);
+  --color: #ffffff;
+  --border-color: transparent;
+}
+
+ion-toolbar ion-title {
+  font-weight: 700;
+}
+
+ion-toolbar ion-back-button {
+  --color: #ffffff;
+}
+
+ion-card {
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: 16px;
+  box-shadow: var(--pc-shadow);
+  color: var(--pc-text);
+}
+
+ion-item {
+  --background: var(--pc-surface);
+  --border-color: var(--pc-border);
+  --highlight-color-focused: var(--pc-green);
+}
+
+ion-button {
+  --border-radius: 12px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+/* In-app toasts and dialogs (see NotifyService) */
+.pc-toast {
+  --border-radius: 14px;
+  --box-shadow: 0 8px 20px rgba(30, 50, 60, 0.18);
+  font-weight: 600;
+}
+
+ion-alert .alert-danger-button {
+  color: var(--pc-danger) !important;
+  font-weight: 700;
+}
+
+/* Dog & cat illustration used inside the blue hero cards */
+.pets-art {
+  position: absolute;
+  right: -4px;
+  bottom: -6px;
+  height: 104px;
+  width: auto;
+  pointer-events: none;
+  animation: pets-peek 0.8s 0.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Blue hero banner shared by pages that have a toolbar */
+.pc-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 118px;
+  margin-bottom: 18px;
+  padding: 18px 180px 18px 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--pc-green), var(--pc-green-light));
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(79, 143, 168, 0.22);
+}
+
+.pc-hero h1 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1.25;
+  font-weight: 800;
+  /* Wrap between words only ("Appointments", not "Appointment-s") */
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Phones: a smaller pets drawing leaves room for the title */
+@media (max-width: 430px) {
+  .pc-hero {
+    padding-right: 142px;
+  }
+
+  .pc-hero .pets-art {
+    height: 84px;
+  }
+}
+
+.pc-hero p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: 0.92;
+}
+
+@keyframes pets-peek {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pets-art { animation: none; }
+}
+
+/* Keep page content above the shared bottom tabs (see BottomNavComponent) */
+body.has-bottom-nav ion-router-outlet {
+  bottom: calc(var(--pc-bottom-nav-height) + env(safe-area-inset-bottom));
+}
+
+/* Desktop: make room for the docked sidebar (see SidebarComponent) */
+body.has-sidebar ion-router-outlet,
+body.has-sidebar .bottom-nav-footer {
+  left: var(--pc-sidebar-width);
+}
+
+/* Ionicons used across pages: keep them aligned with text and in theme colors */
+ion-icon {
+  vertical-align: middle;
+}
+
+.summary-icon,
+.empty-icon,
+.records-icon,
+.record-icon,
+.item-icon,
+.form-icon,
+.pet-avatar,
+.pet-icon,
+.input-icon {
+  color: var(--pc-green);
+}
+
+.not-vaccinated-card .summary-icon,
+.item-icon.removal {
+  color: var(--pc-danger);
+}
+
+.match-ok {
+  color: var(--pc-green);
+}
+
+.match-bad {
+  color: var(--pc-danger);
+}
+
+.reports-footer ion-icon {
+  color: var(--pc-danger);
+}
+
+/* "Mark as Passed Away" dialog: keep the line break before the date */
+.passed-away-alert .alert-message {
+  white-space: pre-line;
+}
+
+/* Shared page background (app.component.html): the blue + paw pattern,
+   with faint JRR logos slowly floating behind every page. */
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: var(--pc-page-bg);
+  pointer-events: none;
+}
+
+.float-logo {
+  position: absolute;
+  opacity: 0.16;
+  border-radius: 24%;
+  animation: logo-float 18s ease-in-out infinite;
+}
+
+.logo-1 { top: 8%;  left: 6%;  width: 110px; animation-duration: 19s; }
+.logo-2 { top: 18%; right: 8%; width: 150px; animation-duration: 23s; animation-delay: -6s; }
+.logo-3 { top: 48%; left: 38%; width: 190px; animation-duration: 27s; animation-delay: -12s; opacity: 0.12; }
+.logo-4 { bottom: 14%; left: 10%; width: 130px; animation-duration: 21s; animation-delay: -3s; }
+.logo-5 { bottom: 8%; right: 14%; width: 95px; animation-duration: 17s; animation-delay: -9s; }
+
+@keyframes logo-float {
+  0%   { transform: translate(0, 0) rotate(-6deg) scale(1); }
+  25%  { transform: translate(18px, -26px) rotate(4deg) scale(1.04); }
+  50%  { transform: translate(-10px, -48px) rotate(8deg) scale(1); }
+  75%  { transform: translate(-22px, -20px) rotate(-2deg) scale(0.97); }
+  100% { transform: translate(0, 0) rotate(-6deg) scale(1); }
+}
+
+/* People who turn off animations in their device settings get still logos */
+@media (prefers-reduced-motion: reduce) {
+  .float-logo {
+    animation: none;
+  }
+}
+
+/* Every date / time field: a clear powder blue calendar or clock icon that is
+   always visible (the browser's own icon is grey and hard to see). */
+input[type='date']::-webkit-calendar-picker-indicator,
+input[type='time']::-webkit-calendar-picker-indicator {
+  width: 22px;
+  height: 22px;
+  padding: 2px;
+  opacity: 1;
+  cursor: pointer;
+  background: center / 22px no-repeat;
+  color: transparent;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8fa8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='3'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3Ccircle cx='8' cy='14.5' r='0.6' fill='%234f8fa8'/%3E%3Ccircle cx='12' cy='14.5' r='0.6' fill='%234f8fa8'/%3E%3Ccircle cx='16' cy='14.5' r='0.6' fill='%234f8fa8'/%3E%3C/svg%3E");
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8fa8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+}
+
+input[type='date']::-webkit-calendar-picker-indicator:hover,
+input[type='time']::-webkit-calendar-picker-indicator:hover {
+  border-radius: 6px;
+  background-color: var(--pc-tint);
+}
+
+/* Dark mode: dimmer floating logos and toolbars, so nothing glares */
+.ion-palette-dark .float-logo {
+  opacity: 0.09;
+}
+
+.ion-palette-dark ion-toolbar {
+  --background: #1b4556;
+}
+
+:root.ion-palette-dark .sidebar::before {
+  opacity: 0.06;
+}
+
+/* "In loving memory" label (Pet Details) in dark mode */
+:root.ion-palette-dark .memorial-banner {
+  background: linear-gradient(135deg, #3a2a35, #23323f);
+  color: #f0d6e2;
+}

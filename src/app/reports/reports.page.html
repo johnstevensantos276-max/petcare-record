@@ -1,17 +1,18 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>🐾 PetCare Reports</ion-title>
+    <ion-title>PetCare Reports</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="report-content">
   <div class="reports-container">
 
-    <div class="page-heading">
-      <div class="heading-icon">📊</div>
+    <section class="pc-hero">
       <h1>PetCare Reports</h1>
       <p>View a summary of your pet records and appointments.</p>
-    </div>
+      <img class="pets-art" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    </section>
 
     <div class="section-heading">
       <h2>Overview</h2>
@@ -19,10 +20,9 @@
     </div>
 
     <div class="summary-grid">
-
       <ion-card class="summary-card blue">
         <ion-card-content>
-          <div class="summary-icon">🐾</div>
+          <div class="summary-icon"><ion-icon name="paw-outline"></ion-icon></div>
           <p>Total Pets</p>
           <h2>{{ totalPets }}</h2>
           <span>Registered pets</span>
@@ -31,7 +31,7 @@
 
       <ion-card class="summary-card green">
         <ion-card-content>
-          <div class="summary-icon">💚</div>
+          <div class="summary-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
           <p>Vaccinated</p>
           <h2>{{ vaccinated }}</h2>
           <span>Vaccination status</span>
@@ -40,7 +40,7 @@
 
       <ion-card class="summary-card red">
         <ion-card-content>
-          <div class="summary-icon">💉</div>
+          <div class="summary-icon"><ion-icon name="medkit-outline"></ion-icon></div>
           <p>Not Vaccinated</p>
           <h2>{{ notVaccinated }}</h2>
           <span>Needs attention</span>
@@ -49,18 +49,17 @@
 
       <ion-card class="summary-card purple">
         <ion-card-content>
-          <div class="summary-icon">📅</div>
+          <div class="summary-icon"><ion-icon name="calendar-outline"></ion-icon></div>
           <p>Total Appointments</p>
           <h2>{{ totalAppointments }}</h2>
           <span>Scheduled visits</span>
         </ion-card-content>
       </ion-card>
-
     </div>
 
     <div class="records-summary">
       <div class="records-heading">
-        <div class="records-icon">📋</div>
+        <div class="records-icon"><ion-icon name="clipboard-outline"></ion-icon></div>
         <div>
           <h2>Pet Records Summary</h2>
           <p>Number of pets by type</p>
@@ -69,7 +68,7 @@
 
       <div class="record-row">
         <div class="record-label">
-          <span class="record-icon">🐕</span>
+          <ion-icon class="record-icon" name="paw-outline"></ion-icon>
           <span>Dogs</span>
         </div>
         <strong>{{ dogs }}</strong>
@@ -77,7 +76,7 @@
 
       <div class="record-row">
         <div class="record-label">
-          <span class="record-icon">🐈</span>
+          <ion-icon class="record-icon" name="paw-outline"></ion-icon>
           <span>Cats</span>
         </div>
         <strong>{{ cats }}</strong>
@@ -85,7 +84,7 @@
 
       <div class="record-row">
         <div class="record-label">
-          <span class="record-icon">🐾</span>
+          <ion-icon class="record-icon" name="paw-outline"></ion-icon>
           <span>Other Pets</span>
         </div>
         <strong>{{ otherPets }}</strong>
@@ -99,14 +98,14 @@
 
     <ion-button
       expand="block"
-      fill="clear"
+      fill="outline"
       class="back-button"
       routerLink="/dashboard">
-      ← Back to Dashboard
+      <ion-icon name="arrow-back-outline"></ion-icon> Back to Dashboard
     </ion-button>
 
     <div class="reports-footer">
-      <span>💜</span>
+      <span><ion-icon name="heart"></ion-icon></span>
       <p>Every pet deserves love, care, and attention.</p>
     </div>
 

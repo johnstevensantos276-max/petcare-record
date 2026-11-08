@@ -1,0 +1,98 @@
+<div class="social-divider"><span>or continue with</span></div>
+
+<div class="social-buttons" [class.is-busy]="disabled">
+  <button type="button" class="social-button google" (click)="open('google')">
+    <ion-icon name="logo-google"></ion-icon>
+    Continue with Google
+  </button>
+
+  <button type="button" class="social-button facebook" (click)="open('facebook')">
+    <ion-icon name="logo-facebook"></ion-icon>
+    Continue with Facebook
+  </button>
+</div>
+
+<!-- Sign-in window (moved to <body>, see ngAfterViewInit) -->
+<div #sheetLayer class="sheet-layer">
+<div class="sheet-backdrop" *ngIf="provider" (click)="close()">
+  <form
+    class="sheet"
+    [class.facebook]="provider === 'facebook'"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="'Continue with ' + providerName"
+    (click)="$event.stopPropagation()"
+    (ngSubmit)="submit()">
+
+    <button type="button" class="sheet-close" aria-label="Close" (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+    <div class="sheet-brand">
+      <ion-icon [name]="provider === 'facebook' ? 'logo-facebook' : 'logo-google'"></ion-icon>
+    </div>
+
+    <h2>Continue with {{ providerName }}</h2>
+    <p class="sheet-subtitle">to PetCare Record</p>
+
+    <p class="sheet-note">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+      Use a password just for PetCare &mdash; not your real {{ providerName }} password.
+      First time? Your account is made automatically.
+    </p>
+
+    <label class="sheet-field">
+      <span>{{ provider === 'facebook' ? 'Email, username or mobile number' : 'Google Email' }}</span>
+      <input
+        name="email"
+        [type]="provider === 'facebook' ? 'text' : 'email'"
+        autocomplete="username"
+        autocapitalize="off"
+        [placeholder]="provider === 'facebook' ? 'Your Facebook email, username or number' : 'you@gmail.com'"
+        [(ngModel)]="email"
+        [disabled]="busy">
+    </label>
+
+    <label class="sheet-field">
+      <span>Password</span>
+      <span class="sheet-password">
+        <input
+          name="password"
+          [type]="showPassword ? 'text' : 'password'"
+          autocomplete="current-password"
+          placeholder="6+ characters, letters and numbers"
+          [(ngModel)]="password"
+          [disabled]="busy">
+        <button
+          type="button"
+          class="sheet-eye"
+          (click)="showPassword = !showPassword"
+          [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+          <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+        </button>
+      </span>
+    </label>
+
+    <label class="sheet-field">
+      <span>Recovery PIN <small>(4 numbers, first time only)</small></span>
+      <input
+        name="recoveryPin"
+        type="password"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="4"
+        placeholder="Used if you forget your password"
+        [(ngModel)]="recoveryPin"
+        [disabled]="busy">
+    </label>
+
+    <p class="sheet-error" *ngIf="errorMessage" role="alert">
+      <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMessage }}
+    </p>
+
+    <button type="submit" class="sheet-submit" [disabled]="busy">
+      {{ busy ? 'Please wait...' : 'Continue' }}
+    </button>
+  </form>
+</div>
+</div>

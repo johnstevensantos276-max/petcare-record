@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Memories</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="memories-page">
+
+    <section class="memories-hero">
+      <div class="hero-icon"><ion-icon name="heart"></ion-icon></div>
+      <div>
+        <h1>Forever in Our Hearts</h1>
+        <p>Remembering the pets who filled our lives with love.</p>
+      </div>
+    </section>
+
+    <div *ngIf="loaded && pets.length === 0" class="empty-state">
+      <div class="empty-icon"><ion-icon name="heart-outline"></ion-icon></div>
+      <h3>No memories here</h3>
+      <p>
+        If a pet passes away, open their record and tap
+        <strong>Mark as Passed Away</strong>. Their records will be kept here.
+      </p>
+    </div>
+
+    <div class="memory-grid">
+      <button
+        type="button"
+        class="memory-card"
+        *ngFor="let pet of pets; trackBy: trackByPet"
+        (click)="open(pet)">
+
+        <div class="memory-photo">
+          <img *ngIf="pet.photo; else memoryPaw" [src]="pet.photo" alt="">
+          <ng-template #memoryPaw><ion-icon name="paw"></ion-icon></ng-template>
+        </div>
+
+        <div class="memory-info">
+          <h2>{{ pet.petName }}</h2>
+          <p class="memory-years">{{ years(pet) }}</p>
+          <p class="memory-type">{{ pet.petType }}<span *ngIf="pet.breed"> · {{ pet.breed }}</span></p>
+
+          <div class="memory-details">
+            <span *ngIf="pet.birthday"><ion-icon name="gift-outline"></ion-icon> Born {{ pet.birthday.slice(0, 10) }}</span>
+            <span><ion-icon name="calendar-outline"></ion-icon> Passed away {{ pet.passedAwayOn }}</span>
+            <span *ngIf="lifespan(pet)"><ion-icon name="time-outline"></ion-icon> Lived {{ lifespan(pet) }}</span>
+            <span *ngIf="isVaccinated(pet)"><ion-icon name="shield-checkmark-outline"></ion-icon> Vaccinated</span>
+          </div>
+        </div>
+
+        <ion-icon class="memory-arrow" name="chevron-forward-outline"></ion-icon>
+      </button>
+    </div>
+
+  </div>
+</ion-content>

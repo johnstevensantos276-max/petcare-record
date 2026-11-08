@@ -1,0 +1,136 @@
+<ng-container *ngIf="visible">
+
+  <button
+    *ngIf="showToggle"
+    type="button"
+    class="menu-toggle"
+    aria-label="Open menu"
+    (click)="toggle()">
+    <ion-icon name="menu-outline"></ion-icon>
+    <span class="toggle-dot" *ngIf="needsAttention" aria-hidden="true"></span>
+  </button>
+
+  <div
+    class="sidebar-backdrop"
+    [class.show]="open"
+    (click)="close()">
+  </div>
+
+  <nav
+    class="sidebar"
+    [class.open]="open"
+    aria-label="Main menu"
+    [attr.aria-hidden]="!open && !isDesktop">
+
+    <button
+      type="button"
+      class="sidebar-close"
+      aria-label="Close menu"
+      (click)="close()">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+
+    <!-- Profile -->
+    <div class="sidebar-profile">
+      <div class="profile-avatar">{{ userInitial }}</div>
+      <div class="profile-text">
+        <h2>{{ userName }}</h2>
+        <p>&#64;{{ userUsername }}</p>
+      </div>
+    </div>
+
+    <div class="sidebar-summary">
+      <span><ion-icon name="paw-outline"></ion-icon> {{ petCount }} {{ petCount === 1 ? 'pet' : 'pets' }}</span>
+      <span><ion-icon name="calendar-outline"></ion-icon> {{ pendingCount }} upcoming</span>
+    </div>
+
+    <!-- Main menu -->
+    <p class="sidebar-section">Menu</p>
+
+    <button
+      type="button"
+      class="sidebar-item"
+      *ngFor="let item of mainItems"
+      [class.active]="isActive(item)"
+      (click)="go(item)">
+      <ion-icon class="item-icon" [name]="item.icon"></ion-icon>
+      <span class="item-label">{{ item.label }}</span>
+      <span
+        class="item-badge"
+        *ngIf="item.badge && item.badge() > 0">
+        {{ item.badge() }}
+      </span>
+    </button>
+
+    <!-- Appointments by status -->
+    <p class="sidebar-section">Appointments</p>
+
+    <button
+      type="button"
+      class="sidebar-item"
+      *ngFor="let item of appointmentItems"
+      [class.active]="isActiveFilter(item)"
+      (click)="go(item)">
+      <ion-icon class="item-icon" [name]="item.icon"></ion-icon>
+      <span class="item-label">{{ item.label }}</span>
+      <span
+        class="item-badge"
+        [class.success]="item.badgeSuccess"
+        *ngIf="item.badge && item.badge() > 0">
+        {{ item.badge() }}
+      </span>
+    </button>
+
+    <!-- Shortcuts -->
+    <p class="sidebar-section">Needs Attention</p>
+
+    <button
+      type="button"
+      class="sidebar-item"
+      *ngFor="let item of shortcutItems"
+      (click)="go(item)">
+      <ion-icon class="item-icon" [name]="item.icon"></ion-icon>
+      <span class="item-label">{{ item.label }}</span>
+      <span
+        class="item-badge"
+        [class.danger]="item.badgeDanger"
+        *ngIf="item.badge && item.badge() > 0">
+        {{ item.badge() }}
+      </span>
+    </button>
+
+    <div class="sidebar-spacer"></div>
+
+    <!-- Settings: name, password, Recovery PIN, dark mode -->
+    <button
+      type="button"
+      class="sidebar-item"
+      [class.active]="currentPath === '/settings'"
+      (click)="openSettings()">
+      <ion-icon class="item-icon" name="settings-outline"></ion-icon>
+      <span class="item-label">Settings</span>
+    </button>
+
+    <!-- Light / dark mode -->
+    <button
+      type="button"
+      class="sidebar-item theme-switch"
+      role="switch"
+      [attr.aria-checked]="theme.isDark"
+      (click)="theme.setDark(!theme.isDark)">
+      <ion-icon class="item-icon" [name]="theme.isDark ? 'moon' : 'moon-outline'"></ion-icon>
+      <span class="item-label">Dark Mode</span>
+      <span class="switch" [class.on]="theme.isDark" aria-hidden="true">
+        <span class="knob"></span>
+      </span>
+    </button>
+
+    <button
+      type="button"
+      class="sidebar-logout"
+      (click)="logout()">
+      <ion-icon name="log-out-outline"></ion-icon> Logout
+    </button>
+  </nav>
+
+</ng-container>

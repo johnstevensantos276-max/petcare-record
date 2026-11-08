@@ -1,183 +1,312 @@
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>🐾 Doctor Schedule</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>PetCare Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="appointments-container">
+<ion-content class="ion-padding">
 
-    <div class="page-heading">
-      <div class="heading-icon">📅</div>
-      <h1>Doctor Schedule</h1>
-      <p>Schedule and manage your pet's appointments.</p>
-    </div>
+  <section class="pc-hero">
+    <h1>Vet Appointments</h1>
+    <p>Book and keep track of your pets' check-ups.</p>
+    <img class="pets-art" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+  </section>
 
-    <div class="appointment-form">
-
-      <div class="section-title">
-        <span>🩺</span>
-        <h2>Book an Appointment</h2>
-      </div>
-
-      <p class="form-description">
-        Complete the details below to schedule a visit.
-      </p>
-
-      <ion-item>
-        <ion-select
-          label="Pet Name"
-          labelPlacement="stacked"
-          placeholder="Select your pet"
-          [(ngModel)]="petName">
-
-          <ion-select-option
-            *ngFor="let pet of pets"
-            [value]="pet.petName">
-            {{ pet.petName }}
-          </ion-select-option>
-
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-select
-          label="Doctor"
-          labelPlacement="stacked"
-          placeholder="Choose a doctor"
-          [(ngModel)]="doctorName">
-
-          <ion-select-option value="Dr. Maria Santos">
-            Dr. Maria Santos
-          </ion-select-option>
-
-          <ion-select-option value="Dr. John Cruz">
-            Dr. John Cruz
-          </ion-select-option>
-
-          <ion-select-option value="Dr. Angela Reyes">
-            Dr. Angela Reyes
-          </ion-select-option>
-
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-input
-          label="Appointment Date"
-          labelPlacement="stacked"
-          type="date"
-          [(ngModel)]="date">
-        </ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input
-          label="Appointment Time"
-          labelPlacement="stacked"
-          type="time"
-          [(ngModel)]="time">
-        </ion-input>
-      </ion-item>
-
-      <ion-button
-        expand="block"
-        class="save-button"
-        (click)="saveAppointment()">
-        <ion-icon name="calendar-outline" slot="start"></ion-icon>
-        Save Appointment
-      </ion-button>
-
-    </div>
-
-    <div class="appointment-list">
-
-      <div class="list-heading">
-        <div>
-          <h2>My Appointments</h2>
-          <p>View your scheduled visits.</p>
-        </div>
-        <span class="paw-decoration">🐾</span>
-      </div>
-
-      <div
-        class="empty-message"
-        *ngIf="appointments.length === 0">
-
-        <div class="empty-icon">📅</div>
-        <h3>No Appointments Yet</h3>
-        <p>Your scheduled appointments will appear here.</p>
-
-      </div>
-
-      <ion-card
-        class="appointment-card"
-        *ngFor="let appointment of appointments">
-
-        <ion-card-content>
-
-          <div class="appointment-card-header">
-            <div class="pet-avatar">🐾</div>
-            <div class="appointment-pet">
-              <h3>{{ appointment.petName }}</h3>
-              <p>Veterinary Appointment</p>
-            </div>
-          </div>
-
-          <div class="appointment-detail">
-            <span>🩺</span>
-            <div>
-              <small>Doctor</small>
-              <p>{{ appointment.doctorName }}</p>
-            </div>
-          </div>
-
-          <div class="appointment-detail">
-            <span>📅</span>
-            <div>
-              <small>Date</small>
-              <p>{{ appointment.date }}</p>
-            </div>
-          </div>
-
-          <div class="appointment-detail">
-            <span>🕒</span>
-            <div>
-              <small>Time</small>
-              <p>{{ appointment.time }}</p>
-            </div>
-          </div>
-
-          <ion-button
-            expand="block"
-            fill="outline"
-            color="danger"
-            class="delete-button"
-            (click)="deleteAppointment(appointment.id)">
-
-            <ion-icon name="trash-outline" slot="start"></ion-icon>
-            Delete Appointment
-
-          </ion-button>
-
-        </ion-card-content>
-
-      </ion-card>
-
-    </div>
+  <div class="page-buttons">
+    <ion-button
+      expand="block"
+      [fill]="!showAppointments ? 'solid' : 'outline'"
+      (click)="showAppointments = false">
+      Book Appointment
+    </ion-button>
 
     <ion-button
       expand="block"
-      fill="clear"
-      class="back-button"
-      routerLink="/dashboard">
-      ← Back to Dashboard
+      [fill]="showAppointments ? 'solid' : 'outline'"
+      (click)="showAppointmentList()">
+      Show Appointments
     </ion-button>
+  </div>
 
-    <div class="form-footer">
-      <span>💜</span>
-      <p>Every pet deserves love and proper care.</p>
+  <button type="button" class="test-reminder" (click)="testReminder()">
+    <ion-icon name="notifications-outline"></ion-icon>
+    Test reminder
+  </button>
+
+  <!-- SAVED APPOINTMENTS ONLY -->
+  <div *ngIf="showAppointments">
+    <h2>My Appointments</h2>
+
+    <div class="status-filters">
+      <button
+        type="button"
+        *ngFor="let status of statusFilters"
+        class="status-chip"
+        [class.active]="statusFilter === status"
+        [ngClass]="'chip-' + status.toLowerCase()"
+        (click)="statusFilter = status">
+        {{ status }} ({{ countByStatus(status) }})
+      </button>
     </div>
 
+    <p *ngIf="filteredAppointments.length === 0">
+      No {{ statusFilter === 'All' ? '' : statusFilter.toLowerCase() + ' ' }}appointments found.
+    </p>
+
+    <ion-card *ngFor="let appointment of filteredAppointments">
+      <ion-card-content>
+        <span
+          class="status-badge"
+          [ngClass]="'status-' + getStatus(appointment).toLowerCase()">
+          {{ getStatus(appointment) }}
+        </span>
+
+        <p>
+          <strong>Pet:</strong>
+          {{ appointment.petName }}
+        </p>
+
+        <p>
+          <strong>Doctor:</strong>
+          {{ appointment.doctorName }}
+        </p>
+
+        <p>
+          <strong>Purpose:</strong>
+          {{ appointment.purpose || 'Not specified' }}
+        </p>
+
+        <p>
+          <strong>Date:</strong>
+          {{ appointment.date }}
+        </p>
+
+        <p>
+          <strong>Time:</strong>
+          {{ appointment.time }}
+        </p>
+
+        <!-- Missed only: change the details and make it pending again -->
+        <div class="reschedule-form" *ngIf="reschedulingId === appointment.id">
+          <p class="reschedule-title">Reschedule this appointment</p>
+
+          <ion-item>
+            <ion-input
+              label="Doctor Name"
+              labelPlacement="stacked"
+              [(ngModel)]="rescheduleDoctor"
+              placeholder="Enter doctor name">
+            </ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-select
+              label="Purpose"
+              labelPlacement="stacked"
+              interface="popover"
+              placeholder="What is the appointment for?"
+              [(ngModel)]="reschedulePurpose">
+              <ion-select-option *ngFor="let option of purposes" [value]="option">
+                {{ option }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item *ngIf="reschedulePurpose === 'Other'">
+            <ion-input
+              label="Other purpose"
+              labelPlacement="stacked"
+              [(ngModel)]="rescheduleOther"
+              placeholder="Type the purpose">
+            </ion-input>
+          </ion-item>
+
+          <ion-item class="date-item">
+            <div class="date-field">
+              <span class="date-label">New Date</span>
+              <button
+                type="button"
+                class="calendar-button"
+                [class.empty]="!rescheduleDate"
+                (click)="openPicker('reschedule', 'date')">
+                <ion-icon name="calendar-outline"></ion-icon>
+                <span>{{ rescheduleDate ? formatDate(rescheduleDate) : 'Choose a date' }}</span>
+              </button>
+            </div>
+          </ion-item>
+
+          <ion-item class="date-item">
+            <div class="date-field">
+              <span class="date-label">New Time</span>
+              <button
+                type="button"
+                class="calendar-button"
+                [class.empty]="!rescheduleTime"
+                (click)="openPicker('reschedule', 'time')">
+                <ion-icon name="time-outline"></ion-icon>
+                <span>{{ rescheduleTime ? formatTime(rescheduleTime) : 'Choose a time' }}</span>
+              </button>
+            </div>
+          </ion-item>
+
+          <div class="reschedule-actions">
+            <ion-button size="small" (click)="saveReschedule()">
+              Save as Pending
+            </ion-button>
+            <ion-button size="small" fill="outline" (click)="cancelReschedule()">
+              Cancel
+            </ion-button>
+          </div>
+        </div>
+
+        <ion-button
+          *ngIf="getStatus(appointment) === 'Missed' && reschedulingId !== appointment.id"
+          size="small"
+          (click)="startReschedule(appointment)">
+          Reschedule
+        </ion-button>
+
+        <ion-button
+          *ngIf="getStatus(appointment) !== 'Completed'"
+          color="success"
+          size="small"
+          (click)="completeAppointment(appointment.id)">
+          Mark as Completed
+        </ion-button>
+
+        <ion-button
+          *ngIf="canMarkMissed(appointment)"
+          color="warning"
+          size="small"
+          (click)="missAppointment(appointment.id)">
+          Mark as Missed
+        </ion-button>
+
+        <ion-button
+          color="danger"
+          size="small"
+          (click)="deleteAppointment(appointment.id)">
+          Delete Appointment
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
   </div>
+
+  <!-- BOOKING FORM ONLY -->
+  <div *ngIf="!showAppointments">
+    <h2>Book an Appointment</h2>
+
+    <p *ngIf="pets.length === 0">
+      Register a pet first before booking an appointment.
+    </p>
+
+    <ion-item>
+      <ion-select
+        label="Select Pet"
+        labelPlacement="stacked"
+        [(ngModel)]="petId"
+        placeholder="Choose your pet">
+
+        <ion-select-option
+          *ngFor="let pet of pets"
+          [value]="pet.id">
+          {{ pet.petName }}
+        </ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input
+        label="Doctor Name"
+        labelPlacement="stacked"
+        [(ngModel)]="doctorName"
+        placeholder="Enter doctor name">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select
+        label="Purpose"
+        labelPlacement="stacked"
+        interface="popover"
+        placeholder="What is the appointment for?"
+        [(ngModel)]="purpose">
+        <ion-select-option *ngFor="let option of purposes" [value]="option">
+          {{ option }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="purpose === 'Other'">
+      <ion-input
+        label="Other purpose"
+        labelPlacement="stacked"
+        [(ngModel)]="purposeOther"
+        placeholder="Type the purpose">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="date-item">
+      <div class="date-field">
+        <span class="date-label">Appointment Date</span>
+        <button
+          type="button"
+          class="calendar-button"
+          [class.empty]="!date"
+          (click)="openPicker('book', 'date')">
+          <ion-icon name="calendar-outline"></ion-icon>
+          <span>{{ date ? formatDate(date) : 'Choose a date' }}</span>
+        </button>
+      </div>
+    </ion-item>
+
+    <ion-item class="date-item">
+      <div class="date-field">
+        <span class="date-label">Appointment Time</span>
+        <button
+          type="button"
+          class="calendar-button"
+          [class.empty]="!time"
+          (click)="openPicker('book', 'time')">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ time ? formatTime(time) : 'Choose a time' }}</span>
+        </button>
+      </div>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      (click)="saveAppointment()">
+      Save Appointment
+    </ion-button>
+  </div>
+
+
+  <!-- Calendar / clock for choosing the appointment date and time -->
+  <ion-modal
+    class="calendar-modal"
+    [isOpen]="picker !== null"
+    (didDismiss)="picker = null">
+    <ng-template>
+      <div class="calendar-sheet">
+        <h3>{{ picker?.kind === 'time' ? 'Choose a time' : 'Choose a date' }}</h3>
+        <ion-datetime
+          [presentation]="picker?.kind === 'time' ? 'time' : 'date'"
+          [min]="picker?.kind === 'time' ? undefined : today"
+          [value]="pickerValue"
+          [showDefaultButtons]="true"
+          doneText="Select"
+          cancelText="Cancel"
+          (ionChange)="pickValue($event)"
+          (ionCancel)="picker = null">
+        </ion-datetime>
+      </div>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

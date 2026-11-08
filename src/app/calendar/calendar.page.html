@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Calendar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calendar-page">
+
+    <section class="calendar-card">
+      <div class="calendar-head">
+        <button type="button" class="nav-button" aria-label="Previous month" (click)="changeMonth(-1)">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <h2>{{ monthLabel }}</h2>
+        <button type="button" class="nav-button" aria-label="Next month" (click)="changeMonth(1)">
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+        <button type="button" class="today-button" (click)="goToday()">Today</button>
+      </div>
+
+      <div class="weekdays">
+        <span *ngFor="let name of weekdays">{{ name }}</span>
+      </div>
+
+      <div class="week" *ngFor="let week of weeks">
+        <button
+          type="button"
+          class="day"
+          *ngFor="let day of week"
+          [class.outside]="!day.inMonth"
+          [class.today]="day.date === today"
+          [class.selected]="day.date === selected"
+          [class.has-events]="day.events.length > 0"
+          [attr.aria-label]="ariaLabel(day)"
+          (click)="select(day)">
+          <span class="day-number">{{ day.day }}</span>
+          <span class="day-marks" *ngIf="day.events.length">
+            <ion-icon *ngIf="hasKind(day, 'birthday')" class="mark birthday" name="gift"></ion-icon>
+            <ion-icon *ngIf="hasKind(day, 'appointment')" class="mark appointment" name="calendar"></ion-icon>
+            <ion-icon *ngIf="hasKind(day, 'memory')" class="mark memory" name="heart"></ion-icon>
+          </span>
+          <span class="day-name" *ngFor="let event of day.named.slice(0, 2)" [ngClass]="event.kind">
+            {{ event.name }}
+          </span>
+          <span class="day-more" *ngIf="day.named.length > 2">+{{ day.named.length - 2 }}</span>
+        </button>
+      </div>
+
+      <div class="legend">
+        <span><ion-icon class="mark birthday" name="gift"></ion-icon> Born / Birthday</span>
+        <span><ion-icon class="mark appointment" name="calendar"></ion-icon> Pending appointment</span>
+        <span><ion-icon class="mark memory" name="heart"></ion-icon> Passed away</span>
+      </div>
+    </section>
+
+    <!-- Events on the chosen day -->
+    <section class="day-panel">
+      <h3>{{ selectedLabel }}</h3>
+
+      <p class="no-events" *ngIf="selectedEvents.length === 0">Nothing on this day.</p>
+
+      <button
+        type="button"
+        class="event"
+        *ngFor="let event of selectedEvents"
+        [ngClass]="event.kind"
+        (click)="open(event)">
+        <span class="event-icon"><ion-icon [name]="icon(event.kind)"></ion-icon></span>
+        <span class="event-text">
+          <strong>{{ event.title }}</strong>
+          <small>{{ event.detail }}</small>
+        </span>
+        <ion-icon class="event-arrow" name="chevron-forward-outline"></ion-icon>
+      </button>
+    </section>
+
+    <!-- Everything this month -->
+    <section class="month-list" *ngIf="monthEvents.length">
+      <h3>This month</h3>
+
+      <div class="month-day" *ngFor="let day of monthEvents">
+        <span class="month-date">{{ day.label }}</span>
+        <div>
+          <button
+            type="button"
+            class="event compact"
+            *ngFor="let event of day.events"
+            [ngClass]="event.kind"
+            (click)="open(event)">
+            <span class="event-icon"><ion-icon [name]="icon(event.kind)"></ion-icon></span>
+            <span class="event-text">
+              <strong>{{ event.title }}</strong>
+              <small>{{ event.detail }}</small>
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</ion-content>

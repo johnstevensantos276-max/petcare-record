@@ -1,13 +1,175 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="profile-page">
+
+    <!-- Who is logged in -->
+    <section class="profile-head">
+      <div class="avatar">{{ initial }}</div>
+      <div class="head-text">
+        <h1>{{ user?.fullName }}</h1>
+        <p>{{ user?.username }}</p>
+        <span class="account-chip">
+          <ion-icon [name]="accountIcon"></ion-icon>
+          {{ accountLabel }}
+        </span>
+      </div>
+    </section>
+
+    <!-- Appearance -->
+    <section class="profile-card">
+      <h2><ion-icon name="moon-outline"></ion-icon> Appearance</h2>
+
+      <button
+        type="button"
+        class="setting-row"
+        role="switch"
+        [attr.aria-checked]="theme.isDark"
+        (click)="theme.setDark(!theme.isDark)">
+        <span>
+          <strong>Dark Mode</strong>
+          <small>Easier on the eyes at night</small>
+        </span>
+        <span class="switch" [class.on]="theme.isDark" aria-hidden="true">
+          <span class="knob"></span>
+        </span>
+      </button>
+    </section>
+
+    <!-- Name -->
+    <section class="profile-card">
+      <h2><ion-icon name="person-outline"></ion-icon> Name</h2>
+
+      <label class="field">
+        <span>Full Name</span>
+        <input
+          name="fullName"
+          type="text"
+          autocomplete="name"
+          maxlength="80"
+          placeholder="Your full name"
+          [(ngModel)]="fullName"
+          [disabled]="savingName">
+      </label>
+
+      <button
+        type="button"
+        class="save-button"
+        [disabled]="!nameChanged || savingName"
+        (click)="saveName()">
+        {{ savingName ? 'Saving...' : 'Save Name' }}
+      </button>
+    </section>
+
+    <!-- Password -->
+    <section class="profile-card">
+      <h2><ion-icon name="lock-closed-outline"></ion-icon> Change Password</h2>
+      <p class="hint">Forgot your password? Use your 4-number Recovery PIN instead.</p>
+
+      <label class="field">
+        <span>Current password or Recovery PIN</span>
+        <input
+          name="passwordVerify"
+          [type]="showPassword ? 'text' : 'password'"
+          autocomplete="current-password"
+          placeholder="Your current password or PIN"
+          [(ngModel)]="passwordVerify"
+          (input)="passwordError = ''"
+          [disabled]="savingPassword">
+      </label>
+
+      <label class="field">
+        <span>New Password</span>
+        <span class="with-eye">
+          <input
+            name="newPassword"
+            [type]="showPassword ? 'text' : 'password'"
+            autocomplete="new-password"
+            placeholder="6+ characters, letters and numbers"
+            [(ngModel)]="newPassword"
+            (input)="passwordError = ''"
+            [disabled]="savingPassword">
+          <button
+            type="button"
+            class="eye"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Hide passwords' : 'Show passwords'">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </button>
+        </span>
+      </label>
+
+      <label class="field">
+        <span>Confirm New Password</span>
+        <input
+          name="confirmPassword"
+          [type]="showPassword ? 'text' : 'password'"
+          autocomplete="new-password"
+          placeholder="Re-enter your new password"
+          [(ngModel)]="confirmPassword"
+          (input)="passwordError = ''"
+          [disabled]="savingPassword">
+      </label>
+
+      <p class="error" *ngIf="passwordError" role="alert">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ passwordError }}
+      </p>
+
+      <button type="button" class="save-button" [disabled]="savingPassword" (click)="savePassword()">
+        {{ savingPassword ? 'Saving...' : 'Change Password' }}
+      </button>
+    </section>
+
+    <!-- Recovery PIN -->
+    <section class="profile-card">
+      <h2><ion-icon name="keypad-outline"></ion-icon> Recovery PIN</h2>
+      <p class="hint">
+        {{ user?.hasPin
+          ? 'Used on the Forgot Password page. You can change it here.'
+          : 'Not set yet. Add one so you can reset your password if you forget it.' }}
+      </p>
+
+      <label class="field">
+        <span>{{ user?.hasPin ? 'Current password or old PIN' : 'Current password' }}</span>
+        <input
+          name="pinVerify"
+          type="password"
+          autocomplete="current-password"
+          placeholder="To confirm it's you"
+          [(ngModel)]="pinVerify"
+          (input)="pinError = ''"
+          [disabled]="savingPin">
+      </label>
+
+      <label class="field">
+        <span>New Recovery PIN (4 numbers)</span>
+        <input
+          name="newPin"
+          type="password"
+          inputmode="numeric"
+          autocomplete="off"
+          maxlength="4"
+          placeholder="e.g. a number you will remember"
+          [(ngModel)]="newPin"
+          (input)="pinError = ''"
+          [disabled]="savingPin">
+      </label>
+
+      <p class="error" *ngIf="pinError" role="alert">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ pinError }}
+      </p>
+
+      <button type="button" class="save-button" [disabled]="savingPin" (click)="savePin()">
+        {{ savingPin ? 'Saving...' : 'Save PIN' }}
+      </button>
+    </section>
+
+  </div>
 </ion-content>

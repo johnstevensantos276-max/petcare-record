@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <g id="paw">
+      <ellipse cx="0" cy="6" rx="9" ry="7.5"/>
+      <ellipse cx="-10" cy="-6" rx="3.6" ry="4.6"/>
+      <ellipse cx="-3.5" cy="-11" rx="3.6" ry="4.6"/>
+      <ellipse cx="3.5" cy="-11" rx="3.6" ry="4.6"/>
+      <ellipse cx="10" cy="-6" rx="3.6" ry="4.6"/>
+    </g>
+    <g id="bone">
+      <rect x="-13" y="-3" width="26" height="6" rx="3"/>
+      <circle cx="-13" cy="-3.5" r="4"/>
+      <circle cx="-13" cy="3.5" r="4"/>
+      <circle cx="13" cy="-3.5" r="4"/>
+      <circle cx="13" cy="3.5" r="4"/>
+    </g>
+    <g id="fish">
+      <ellipse cx="0" cy="0" rx="11" ry="6.5"/>
+      <path d="M9 0 L19 -7 L19 7 Z"/>
+    </g>
+    <path id="heart" d="M0 7 C-10 -1 -8 -9 -3 -9 C-1 -9 0 -7 0 -6 C0 -7 1 -9 3 -9 C8 -9 10 -1 0 7 Z"/>
+  </defs>
+
+  <g fill="#1f5f8a" fill-opacity="0.16">
+    <use href="#paw" transform="translate(30 34) rotate(-18)"/>
+    <use href="#bone" transform="translate(120 28) rotate(22)"/>
+    <use href="#paw" transform="translate(205 62) rotate(14)"/>
+    <use href="#heart" transform="translate(78 92) scale(1.1)"/>
+    <use href="#fish" transform="translate(160 118) rotate(-12)"/>
+    <use href="#paw" transform="translate(36 160) rotate(24)"/>
+    <use href="#bone" transform="translate(108 196) rotate(-28)"/>
+    <use href="#heart" transform="translate(210 170) scale(0.9)"/>
+    <use href="#paw" transform="translate(178 222) rotate(-8) scale(0.8)"/>
+  </g>
+</svg>

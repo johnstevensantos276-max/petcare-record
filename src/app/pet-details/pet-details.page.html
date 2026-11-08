@@ -1,0 +1,185 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pet Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="details-container">
+
+    
+<button
+  class="back-button"
+  type="button"
+  (click)="goBack()"
+  [attr.aria-label]="pet?.passedAwayOn ? 'Back to Memories' : 'Back to Pet Cards'">
+  <ion-icon class="back-arrow" name="arrow-back-outline"></ion-icon>
+</button>
+
+    <div *ngIf="pet; else noPet">
+
+      <!-- Big photo, as wide as the cards below; tap to see it full screen -->
+      <ion-card class="photo-card" *ngIf="pet.photo">
+        <button
+          type="button"
+          class="photo-button"
+          (click)="openPhoto()"
+          [attr.aria-label]="'View ' + getPetName() + '\'s photo'">
+          <!-- Blurred copy fills the sides, so the photo is never cut off -->
+          <span class="photo-backdrop" [style.background-image]="'url(' + pet.photo + ')'"></span>
+          <img [src]="pet.photo" [alt]="getPetName()">
+          <span class="photo-hint">
+            <ion-icon name="expand-outline"></ion-icon>
+          </span>
+        </button>
+      </ion-card>
+
+      <div class="pet-heading">
+        <div class="pet-icon" *ngIf="!pet.photo">
+          <ion-icon name="paw"></ion-icon>
+        </div>
+        <h1>{{ getPetName() }}</h1>
+      </div>
+
+      <div class="memorial-banner" *ngIf="pet.passedAwayOn">
+        <ion-icon name="heart"></ion-icon>
+        <div>
+          <strong>In loving memory</strong>
+          <span>Passed away on {{ pet.passedAwayOn }}</span>
+        </div>
+      </div>
+
+      <ion-card class="details-card">
+        <ion-card-content>
+          <h2>Pet Information</h2>
+
+          <div class="detail-row">
+            <span>Pet Name</span>
+            <strong>{{ getPetName() }}</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Pet Type</span>
+            <strong>{{ getPetType() }}</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Breed</span>
+            <strong>{{ getPetBreed() }}</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Birthday</span>
+            <strong>{{ getPetBirthday() }}</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Owner</span>
+            <strong>{{ getOwnerName() }}</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Vaccination Status</span>
+            <strong>{{ getVaccinationStatus() }}</strong>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="details-card" *ngIf="getVaccines().length > 0">
+        <ion-card-content>
+          <h2>Vaccines Given</h2>
+
+          <div class="vaccine-item" *ngFor="let vaccine of getVaccines()">
+            <div class="detail-row">
+              <span>Vaccine</span>
+              <strong>{{ vaccine.name }}</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Purpose</span>
+              <strong>{{ vaccine.purpose || 'Not specified' }}</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Date Given</span>
+              <strong>{{ vaccine.date }}</strong>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-button
+        expand="block"
+        color="success"
+        (click)="editRecord()">
+        Edit Record
+      </ion-button>
+
+      <ion-button
+        *ngIf="!pet.passedAwayOn"
+        expand="block"
+        fill="outline"
+        class="passed-away-button"
+        (click)="markPassedAway()">
+        <ion-icon slot="start" name="heart-outline"></ion-icon>
+        Mark as Passed Away
+      </ion-button>
+
+      <ion-button
+        *ngIf="pet.passedAwayOn"
+        expand="block"
+        fill="outline"
+        (click)="restorePet()">
+        <ion-icon slot="start" name="paw-outline"></ion-icon>
+        Restore to My Pets
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        color="danger"
+        (click)="deleteRecord()">
+        Delete Record
+      </ion-button>
+
+    </div>
+
+    <ng-template #noPet>
+      <div class="empty-state">
+        <div class="pet-icon"><ion-icon name="paw"></ion-icon></div>
+        <h2>Pet Record Not Found</h2>
+        <p>We couldn't find this pet record.</p>
+
+        <ion-button
+          expand="block"
+          color="success"
+          (click)="goBack()">
+          Back to Pet Cards
+        </ion-button>
+      </div>
+    </ng-template>
+
+  </div>
+</ion-content>
+
+<!-- Full-screen photo: only the picture, with an X to go back.
+     Moved to <body> (see ngAfterViewInit) so it covers the menu and tabs. -->
+<div #photoLayer class="photo-layer">
+<div
+  class="photo-viewer"
+  *ngIf="photoOpen && pet?.photo"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-label]="getPetName() + 's photo'"
+  (click)="closePhoto()">
+  <button
+    type="button"
+    class="photo-close"
+    aria-label="Close photo"
+    (click)="closePhoto()">
+    <ion-icon name="close-outline"></ion-icon>
+  </button>
+
+  <img [src]="pet.photo" [alt]="getPetName()" (click)="$event.stopPropagation()">
+</div>
+</div>

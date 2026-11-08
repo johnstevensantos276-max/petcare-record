@@ -1,52 +1,157 @@
-<h1>Create Account</h1>
-<p class="subtitle">Register to continue to PetCare</p>
+<ion-content [fullscreen]="true">
+  <div class="login-page">
 
-<ion-item>
-  <ion-input
-    label="Full Name"
-    labelPlacement="floating"
-    type="text"
-    [(ngModel)]="fullName">
-  </ion-input>
-</ion-item>
+    <!-- Floating paws in the background -->
+    <div class="bg-paws" aria-hidden="true">
+      <span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span>
+    </div>
 
-<ion-item>
-  <ion-input
-    label="Username"
-    labelPlacement="floating"
-    type="text"
-    [(ngModel)]="username">
-  </ion-input>
-</ion-item>
+    <!-- Brand -->
+    <header class="hero hero-compact">
+      <div class="logo">
+        <span class="logo-ring"></span>
+        <ion-icon class="logo-paw" name="paw"></ion-icon>
+      </div>
+      <h1>Create Account</h1>
+      <p>Join PetCare and keep your pets' records in one place.</p>
+    </header>
 
-<ion-item>
-  <ion-input
-    label="Password"
-    labelPlacement="floating"
-    type="password"
-    [(ngModel)]="password">
-  </ion-input>
-</ion-item>
+    <!-- Register card -->
+    <div class="card-enter">
+    <img class="card-pets" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    <form
+      class="login-card"
+      [class.shake]="shake"
+      (animationend)="onShakeEnd($event)"
+      (ngSubmit)="register()">
 
-<ion-item>
-  <ion-input
-    label="Confirm Password"
-    labelPlacement="floating"
-    type="password"
-    [(ngModel)]="confirmPassword">
-  </ion-input>
-</ion-item>
+      <label class="field" style="--i: 0">
+        <span class="field-label">Full Name</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="person-outline"></ion-icon>
+          <input
+            name="fullName"
+            type="text"
+            autocomplete="name"
+            placeholder="Enter your full name"
+            [(ngModel)]="fullName"
+            (input)="clearError()"
+            [disabled]="loading">
+        </span>
+      </label>
 
-<ion-button
-  expand="block"
-  class="register-button"
-  (click)="register()">
-  Register
-</ion-button>
+      <label class="field" style="--i: 1">
+        <span class="field-label">Email</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="mail-outline"></ion-icon>
+          <input
+            name="username"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            [(ngModel)]="username"
+            (input)="clearError()"
+            [disabled]="loading">
+        </span>
+      </label>
 
-<ion-button
-  expand="block"
-  fill="clear"
-  routerLink="/login">
-  Back to Login
-</ion-button>
+      <label class="field" style="--i: 2">
+        <span class="field-label">Password</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="lock-closed-outline"></ion-icon>
+          <input
+            name="password"
+            [type]="showPassword ? 'text' : 'password'"
+            autocomplete="new-password"
+            placeholder="6+ characters, letters and numbers"
+            [(ngModel)]="password"
+            (input)="clearError()"
+            [disabled]="loading">
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </button>
+        </span>
+      </label>
+
+      <label class="field" style="--i: 3">
+        <span class="field-label">Confirm Password</span>
+        <span
+          class="input-wrap"
+          [class.mismatch]="confirmPassword && confirmPassword !== password"
+          [class.match]="confirmPassword && confirmPassword === password">
+          <ion-icon class="input-icon" name="lock-closed-outline"></ion-icon>
+          <input
+            name="confirmPassword"
+            [type]="showPassword ? 'text' : 'password'"
+            autocomplete="new-password"
+            placeholder="Re-enter your password"
+            [(ngModel)]="confirmPassword"
+            (input)="clearError()"
+            [disabled]="loading">
+          <span class="match-icon" *ngIf="confirmPassword">
+            <ion-icon [name]="confirmPassword === password ? 'checkmark-circle' : 'close-circle'" [class.match-ok]="confirmPassword === password" [class.match-bad]="confirmPassword !== password"></ion-icon>
+          </span>
+        </span>
+      </label>
+
+      <label class="field" style="--i: 4">
+        <span class="field-label">Recovery PIN (4 numbers)</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="keypad-outline"></ion-icon>
+          <input
+            name="recoveryPin"
+            type="password"
+            inputmode="numeric"
+            autocomplete="off"
+            maxlength="4"
+            placeholder="Used if you forget your password"
+            [(ngModel)]="recoveryPin"
+            (input)="clearError()"
+            [disabled]="loading">
+        </span>
+      </label>
+
+      <p class="error" *ngIf="errorMessage" role="alert">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMessage }}
+      </p>
+
+      <button
+        type="submit"
+        class="login-button"
+        style="--i: 4"
+        [class.is-loading]="loading && !success"
+        [disabled]="loading">
+        <span class="spinner" *ngIf="loading && !success"></span>
+        <span>{{ loading ? 'Creating account...' : 'Create Account' }}</span>
+      </button>
+
+      <app-social-login
+        [disabled]="loading"
+        (loggedIn)="onSocialLogin($event)">
+      </app-social-login>
+
+      <p class="register-link" style="--i: 5">
+        Already have an account?
+        <a routerLink="/login">Log in</a>
+      </p>
+    </form>
+    </div>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" *ngIf="success">
+      <div class="success-badge">
+        <svg viewBox="0 0 52 52" aria-hidden="true">
+          <circle cx="26" cy="26" r="24" />
+          <path d="M15 27 l7 7 l15 -16" />
+        </svg>
+      </div>
+      <h2>Welcome, {{ fullName }}!</h2>
+      <p>Your account is ready. Taking you to login...</p>
+    </div>
+
+  </div>
+</ion-content>

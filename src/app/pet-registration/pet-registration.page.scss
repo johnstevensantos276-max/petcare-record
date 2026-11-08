@@ -1,189 +1,358 @@
-ion-content {
-  --background: #f0f5ff;
-}
-
-ion-toolbar {
-  --background: #ffffff;
-  --color: #30365c;
-  --border-width: 0;
-  --min-height: 60px;
-}
-
-ion-title {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.registration-container {
-  max-width: 600px;
+.registration-page {
+  max-width: 620px;
   margin: 0 auto;
-  padding: 20px 16px 30px;
+  padding: 16px;
+  color: var(--pc-text);
 }
 
-/* Page heading */
-.page-heading {
-  text-align: center;
-  padding: 12px 10px 24px;
-}
-
-.heading-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 14px;
-  border-radius: 24px;
-  background: #e3e9ff;
-  font-size: 42px;
-}
-
-.page-heading h1 {
-  color: #30365c;
-  font-size: 26px;
-  font-weight: 800;
-  margin: 0 0 9px;
-}
-
-.page-heading p {
-  color: #7b8198;
-  font-size: 13px;
-  line-height: 1.6;
-  max-width: 340px;
-  margin: 0 auto;
-}
-
-/* Form card */
-.registration-form {
-  background: #ffffff;
-  padding: 20px;
-  border: 1px solid #e4eaff;
-  border-radius: 22px;
-  box-shadow: 0 5px 18px rgba(45, 55, 110, 0.06);
-}
-
-.form-section-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid #edf0fa;
-}
-
-.form-section-title span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
-  background: #edf1ff;
-  font-size: 21px;
-}
-
-.form-section-title h2 {
-  color: #30365c;
-  font-size: 17px;
-  font-weight: 800;
-  margin: 0;
-}
-
-/* Input fields */
-ion-item {
-  --background: #f8faff;
-  --color: #30365c;
-  --border-radius: 13px;
-  --padding-start: 13px;
-  --inner-padding-end: 12px;
-  --min-height: 66px;
-
-  margin-bottom: 13px;
-  border: 1px solid #e4eaff;
-  border-radius: 13px;
+/* Header (same gradient as the Dashboard welcome card) */
+.page-header {
+  position: relative;
   overflow: hidden;
-}
-
-ion-input,
-ion-select,
-ion-textarea {
-  --color: #30365c;
-  --highlight-color-focused: #4059d9;
-  font-size: 14px;
-}
-
-ion-input {
-  --placeholder-color: #9ba2b7;
-}
-
-ion-select {
-  width: 100%;
-  max-width: 100%;
-}
-
-.notes-item {
-  --min-height: 100px;
-}
-
-/* Buttons */
-.save-button {
-  --background: #4059d9;
-  --background-activated: #3046b7;
-  --border-radius: 14px;
-  height: 50px;
-  margin-top: 20px;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: none;
-  box-shadow: 0 5px 12px rgba(64, 89, 217, 0.18);
+  min-height: 118px;
+  padding-right: 128px !important;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: env(safe-area-inset-top);
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--pc-green), var(--pc-green-light));
+  color: #ffffff;
 }
 
 .back-button {
-  --color: #4059d9;
-  --border-radius: 12px;
-  height: 44px;
-  margin-top: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: none;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 21px;
+  cursor: pointer;
 }
 
-/* Footer */
-.form-footer {
+.header-text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Smaller here, since the header also has a back button */
+.page-header .pets-art {
+  height: 74px;
+}
+
+.header-text h1 {
+  margin: 0 0 4px;
+  font-size: 19px;
+  line-height: 1.25;
+  font-weight: 800;
+  /* Wrap between words only ("Pet Registration", not "Registratio-n") */
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.header-text p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.header-paw {
+  font-size: 28px;
+}
+
+/* Form card */
+.form-card {
+  margin-top: 18px;
+  padding: 18px 16px;
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: 18px;
+  box-shadow: var(--pc-shadow);
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--pc-border);
+}
+
+.form-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--pc-tint-strong);
+  font-size: 22px;
+}
+
+.form-title h2 {
+  margin: 0 0 3px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.form-title p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 12px;
+}
+
+.form-card ion-item {
+  --background: var(--pc-bg);
+  --border-color: transparent;
+  --padding-start: 12px;
+  --inner-padding-end: 12px;
+  margin-top: 12px;
+  border: 1px solid var(--pc-border);
+  border-radius: 12px;
+}
+
+.form-card ion-item:focus-within {
+  border-color: var(--pc-green-light);
+}
+
+.form-card ion-label {
+  color: var(--pc-text) !important;
+  font-weight: 600;
+}
+
+/* Vaccines given */
+.vaccine-section {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pc-border);
+}
+
+.vaccine-section-title h3 {
+  margin: 0 0 3px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.vaccine-section-title p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 12px;
+}
+
+.vaccine-entry {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px dashed var(--pc-border);
+  border-radius: 14px;
+}
+
+.vaccine-entry-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.remove-vaccine {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 10px;
+  background: var(--pc-danger-tint);
+  color: var(--pc-danger);
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.add-vaccine-button {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--pc-green-light);
+  border-radius: 12px;
+  background: var(--pc-tint-strong);
+  color: var(--pc-green-dark);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Buttons */
+.save-button,
+.cancel-button {
+  width: 100%;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.save-button {
   margin-top: 22px;
-  text-align: center;
+  border: none;
+  background: var(--pc-green);
+  color: #ffffff;
 }
 
-.form-footer span {
-  font-size: 17px;
+.save-button:active {
+  background: var(--pc-green-dark);
 }
 
-.form-footer p {
-  color: #7b8198;
+.save-button ion-icon {
+  font-size: 20px;
+}
+
+.cancel-button {
+  margin-top: 10px;
+  border: 1px solid var(--pc-border);
+  background: var(--pc-surface);
+  color: var(--pc-muted);
+}
+
+.bottom-space {
+  height: 24px;
+}
+
+.photo-picker {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.photo-preview {
+  width: 96px;
+  height: 96px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px dashed var(--pc-border);
+  border-radius: 22px;
+  background: var(--pc-tint);
+  font-size: 40px;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.photo-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--pc-green);
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.photo-button.secondary {
+  background: var(--pc-tint-strong);
+  color: var(--pc-green-dark);
+}
+
+.photo-remove {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--pc-danger);
   font-size: 12px;
-  line-height: 1.5;
-  margin: 0;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
 }
 
-@media (max-width: 480px) {
-  .registration-container {
-    padding: 14px 12px 24px;
-  }
+.camera-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.85);
+}
 
-  .page-heading h1 {
-    font-size: 23px;
-  }
+.camera-box {
+  width: 100%;
+  max-width: 480px;
+}
 
-  .registration-form {
-    padding: 15px;
-    border-radius: 18px;
-  }
+.camera-box video {
+  width: 100%;
+  max-height: 70vh;
+  display: block;
+  border-radius: 18px;
+  background: #000000;
+  object-fit: cover;
+}
 
-  .form-section-title h2 {
-    font-size: 16px;
-  }
+.camera-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+.camera-cancel,
+.camera-switch {
+  min-width: 72px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.camera-switch {
+  font-size: 22px;
+}
+
+.camera-shutter {
+  width: 70px;
+  height: 70px;
+  border: 5px solid #ffffff;
+  border-radius: 50%;
+  background: var(--pc-green);
+  cursor: pointer;
 }

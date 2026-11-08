@@ -1,2 +1,94 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+
+// PetCare palette (powder blue)
+:root {
+  --pc-green: #4f8fa8;
+  --pc-green-dark: #3d7a92;
+  --pc-green-light: #8cc7d6;
+  // Cards, panels and inputs (white here, dark blue in dark mode).
+  --pc-surface: #ffffff;
+  --pc-tint: #eaf6f9;
+  --pc-tint-strong: #d4edf2;
+  --pc-bg: #f3f9fb;
+  --pc-border: #dfeaee;
+  --pc-text: #23353d;
+  --pc-muted: #73858c;
+  --pc-danger: #b3412f;
+  --pc-danger-tint: #fbe3dd;
+  --pc-shadow: 0 2px 8px rgba(30, 50, 60, 0.06);
+  --pc-bottom-nav-height: 69px;
+  --pc-sidebar-width: 280px;
+  // A clear light blue, deep enough that the paw pattern behind the cards shows.
+  --pc-page-bg: #a6d3ee url('/assets/images/pets-pattern.svg') repeat top left / 240px 240px;
+
+  --ion-color-primary: #4f8fa8;
+  --ion-color-primary-rgb: 79, 143, 168;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #467e94;
+  --ion-color-primary-tint: #619aaf;
+
+  --ion-color-success: #4f8fa8;
+  --ion-color-success-rgb: 79, 143, 168;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #467e94;
+  --ion-color-success-tint: #619aaf;
+
+  --ion-color-danger: #b3412f;
+  --ion-color-danger-rgb: 179, 65, 47;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #9e3929;
+  --ion-color-danger-tint: #bb5444;
+
+  --ion-background-color: #a6d3ee;
+  --ion-text-color: #23353d;
+}
+
+// Dark mode (switch in the side menu). Soft dark blue instead of black and
+// light blue-white text instead of pure white, so it is easy on the eyes;
+// the powder blue accents stay. Comes after Ionic's dark palette, so these win.
+:root.ion-palette-dark {
+  --pc-green: #4f93ad;
+  --pc-green-dark: #9fd3e6;
+  --pc-green-light: #2b6378;
+  --pc-surface: #16303b;
+  --pc-tint: #1d3c49;
+  --pc-tint-strong: #24495a;
+  --pc-bg: #1a3742;
+  --pc-border: #2a4a57;
+  --pc-text: #e2eef2;
+  --pc-muted: #93abb4;
+  --pc-danger: #ff8f80;
+  --pc-danger-tint: #432528;
+  --pc-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --pc-page-bg: #0e212a url('/assets/images/pets-pattern-dark.svg') repeat top left / 240px 240px;
+
+  --ion-color-primary: #4f93ad;
+  --ion-color-primary-rgb: 79, 147, 173;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #467f96;
+  --ion-color-primary-tint: #619eb6;
+
+  --ion-color-success: #4f93ad;
+  --ion-color-success-rgb: 79, 147, 173;
+  --ion-color-success-shade: #467f96;
+  --ion-color-success-tint: #619eb6;
+
+  --ion-color-danger: #e0675a;
+  --ion-color-danger-rgb: 224, 103, 90;
+  --ion-color-danger-shade: #c55a4f;
+  --ion-color-danger-tint: #e3766b;
+
+  --ion-background-color: #0e212a;
+  --ion-background-color-rgb: 14, 33, 42;
+  --ion-text-color: #e2eef2;
+  --ion-text-color-rgb: 226, 238, 242;
+  --ion-item-background: #16303b;
+  --ion-card-background: #16303b;
+  --ion-toolbar-background: #2b6378;
+  --ion-overlay-background-color: #16303b;
+}

@@ -1,3 +1,15 @@
 <ion-app>
+  <!-- Shared page background: blue + paw pattern + slowly floating JRR logos.
+       Pages are transparent so this shows behind them (see global.scss). -->
+  <div class="app-backdrop" aria-hidden="true">
+    <img class="float-logo logo-1" src="assets/images/jrr-logo.svg" alt="">
+    <img class="float-logo logo-2" src="assets/images/jrr-logo.svg" alt="">
+    <img class="float-logo logo-3" src="assets/images/jrr-logo.svg" alt="">
+    <img class="float-logo logo-4" src="assets/images/jrr-logo.svg" alt="">
+    <img class="float-logo logo-5" src="assets/images/jrr-logo.svg" alt="">
+  </div>
+
   <ion-router-outlet></ion-router-outlet>
+  <app-bottom-nav></app-bottom-nav>
+  <app-sidebar></app-sidebar>
 </ion-app>

@@ -1,0 +1,16 @@
+{
+  "name": "PetCare Record",
+  "short_name": "PetCare",
+  "description": "Pet information made simple.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#eaf6f9",
+  "theme_color": "#4f8fa8",
+  "icons": [
+    { "src": "assets/icon/jrr-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon/jrr-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/images/jrr-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

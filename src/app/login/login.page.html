@@ -1,38 +1,111 @@
-<ion-header> <ion-toolbar> <ion-title>PetCare Login</ion-title> </ion-toolbar> </ion-header> <ion-content class="ion-padding"> <div class="login-container">
-<h1>Welcome to PetCare 🐾</h1>
-<p class="subtitle">Login to continue</p>
+<ion-content [fullscreen]="true">
+  <div class="login-page">
 
-<ion-item>
-  <ion-input
-    label="Username"
-    labelPlacement="floating"
-    type="text"
-    placeholder="Enter username"
-    [(ngModel)]="username">
-  </ion-input>
-</ion-item>
+    <!-- Floating paws in the background -->
+    <div class="bg-paws" aria-hidden="true">
+      <span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span><span><ion-icon name="paw"></ion-icon></span>
+    </div>
 
-<ion-item>
-  <ion-input
-    label="Password"
-    labelPlacement="floating"
-    type="password"
-    placeholder="Enter password"
-    [(ngModel)]="password">
-  </ion-input>
-</ion-item>
+    <!-- Brand -->
+    <header class="hero">
+      <div class="logo">
+        <span class="logo-ring"></span>
+        <img class="logo-img" src="assets/images/jrr-logo.svg" alt="JRR logo">
+      </div>
+      <h1>PetCare Record</h1>
+      <p>Caring for your pets, made simple.</p>
+    </header>
 
-<ion-button
-  expand="block"
-  class="login-button"
-  (click)="login()">
-  Login
-</ion-button>
+    <!-- Login card -->
+    <div class="card-enter">
+    <img class="card-pets" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    <form
+      class="login-card"
+      [class.shake]="shake"
+      (animationend)="onShakeEnd($event)"
+      (ngSubmit)="login()">
 
-<ion-button
-  expand="block"
-  fill="clear"
-  routerLink="/register">
-  Create Account
-</ion-button>
-</div> </ion-content>
+      <h2>Welcome back!</h2>
+      <p class="subtitle">Log in to view your pets' records.</p>
+
+      <label class="field" style="--i: 0">
+        <span class="field-label">Email</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="mail-outline"></ion-icon>
+          <input
+            name="username"
+            type="email"
+            autocomplete="username"
+            placeholder="Enter your email"
+            [(ngModel)]="username"
+            (input)="clearError()"
+            [disabled]="loading">
+        </span>
+      </label>
+
+      <label class="field" style="--i: 1">
+        <span class="field-label">Password</span>
+        <span class="input-wrap">
+          <ion-icon class="input-icon" name="lock-closed-outline"></ion-icon>
+          <input
+            name="password"
+            [type]="showPassword ? 'text' : 'password'"
+            autocomplete="current-password"
+            placeholder="Enter password"
+            [(ngModel)]="password"
+            (input)="clearError()"
+            [disabled]="loading">
+          <button
+            type="button"
+            class="toggle-password"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'">
+            <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+          </button>
+        </span>
+      </label>
+
+      <p class="forgot-link">
+        <a routerLink="/forgot-password">Forgot password?</a>
+      </p>
+
+      <p class="error" *ngIf="errorMessage" role="alert">
+        <ion-icon name="alert-circle-outline"></ion-icon> {{ errorMessage }}
+      </p>
+
+      <button
+        type="submit"
+        class="login-button"
+        style="--i: 2"
+        [class.is-loading]="loading && !success"
+        [disabled]="loading">
+        <span class="spinner" *ngIf="loading && !success"></span>
+        <span>{{ loading ? 'Logging in...' : 'Login' }}</span>
+      </button>
+
+      <app-social-login
+        [disabled]="loading"
+        (loggedIn)="onSocialLogin($event)">
+      </app-social-login>
+
+      <p class="register-link" style="--i: 3">
+        Don't have an account?
+        <a routerLink="/register">Create Account</a>
+      </p>
+    </form>
+    </div>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" *ngIf="success">
+      <div class="success-badge">
+        <svg viewBox="0 0 52 52" aria-hidden="true">
+          <circle cx="26" cy="26" r="24" />
+          <path d="M15 27 l7 7 l15 -16" />
+        </svg>
+      </div>
+      <h2>Hello, {{ welcomeName }}!</h2>
+      <p>Taking you to your dashboard...</p>
+    </div>
+
+  </div>
+</ion-content>

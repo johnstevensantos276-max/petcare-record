@@ -1,0 +1,170 @@
+.birthday-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow: hidden;
+  background: rgba(14, 33, 42, 0.55);
+  animation: birthday-fade 0.25s ease-out both;
+}
+
+/* Falling confetti */
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confetti span {
+  position: absolute;
+  top: -20px;
+  width: 9px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0.9;
+  animation-name: confetti-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.confetti span.round {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.birthday-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  padding: 26px 22px 22px;
+  box-sizing: border-box;
+  border-radius: 24px;
+  background: var(--pc-surface);
+  color: var(--pc-text);
+  text-align: center;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  animation: birthday-pop 0.45s cubic-bezier(0.2, 0.8, 0.2, 1.25) both;
+}
+
+.birthday-photos {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.birthday-photo {
+  width: 96px;
+  height: 96px;
+  margin: 0 -10px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 4px solid var(--pc-surface);
+  border-radius: 50%;
+  background: var(--pc-tint);
+  color: var(--pc-green);
+  font-size: 42px;
+  box-shadow: 0 0 0 3px #f3b63f;
+}
+
+.birthday-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.birthday-badge {
+  position: absolute;
+  right: calc(50% - 64px);
+  bottom: -4px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--pc-surface);
+  border-radius: 50%;
+  background: #f3b63f;
+  color: #ffffff;
+  font-size: 19px;
+  animation: badge-wiggle 1.6s ease-in-out infinite;
+}
+
+.birthday-label {
+  margin: 0;
+  color: #e39b2d;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.birthday-card h2 {
+  margin: 6px 0 8px;
+  color: var(--pc-green-dark);
+  font-size: 23px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.birthday-age {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.birthday-note {
+  margin: 10px 0 18px;
+  color: var(--pc-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.birthday-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--pc-green), #8cc7d6);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(79, 143, 168, 0.35);
+}
+
+@keyframes birthday-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes birthday-pop {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(110vh) rotate(540deg); }
+}
+
+@keyframes badge-wiggle {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti {
+    display: none;
+  }
+
+  .birthday-badge {
+    animation: none;
+  }
+}

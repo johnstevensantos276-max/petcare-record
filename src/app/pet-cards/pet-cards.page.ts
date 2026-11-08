@@ -1,33 +1,31 @@
-import { Component } from '@angular/core';
+
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { IonContent } from '@ionic/angular/ion-content';
-import { IonHeader } from '@ionic/angular/ion-header';
-import { IonTitle } from '@ionic/angular/ion-title';
-import { IonToolbar } from '@ionic/angular/ion-toolbar';
-import { IonButton } from '@ionic/angular/ion-button';
-import { IonIcon } from '@ionic/angular/ion-icon';
-import { IonCard } from '@ionic/angular/ion-card';
-import { IonCardContent } from '@ionic/angular/ion-card-content';
-import { IonCardHeader } from '@ionic/angular/ion-card-header';
-import { IonCardTitle } from '@ionic/angular/ion-card-title';
-import { IonItem } from '@ionic/angular/ion-item';
-import { IonLabel } from '@ionic/angular/ion-label';
-import { IonSelect } from '@ionic/angular/ion-select';
-import { IonSelectOption } from '@ionic/angular/ion-select-option';
-import { IonBadge } from '@ionic/angular/ion-badge';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonCardContent,
+  IonBadge
+} from '@ionic/angular';
 
-interface Pet {
-  petName: string;
-  birthday?: string;
-  petType?: string;
-  breed?: string;
-  ownerName?: string;
-  vaccinationStatus?: string;
-  medicalNotes?: string;
-}
+import { addIcons } from 'ionicons';
+import { chevronForwardOutline } from 'ionicons/icons';
+
+import {
+  DatabaseService,
+  PET_TYPES,
+  PetRecord,
+  VaccineRecord,
+  isVaccinated
+} from '../services/database.service';
 
 @Component({
   selector: 'app-pet-cards',
@@ -45,82 +43,122 @@ interface Pet {
     IonIcon,
     IonCard,
     IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonItem,
-    IonLabel,
-    IonSelect,
-    IonSelectOption,
     IonBadge
   ]
 })
 export class PetCardsPage {
-  pets: Pet[] = [];
+  // The app is zoneless: refresh the view after async database calls.
+  private cdr = inject(ChangeDetectorRef);
+
+  pets: PetRecord[] = [];
+
   selectedPetType = 'All';
+  selectedVaccination = 'All';
 
-  constructor(private router: Router) {}
+  petTypes = ['All', ...PET_TYPES, 'Other'];
 
-  ionViewWillEnter(): void {
-    this.loadPets();
+  vaccinationStatuses = [
+    'All',
+    'Vaccinated',
+    'Not Vaccinated'
+  ];
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private db: DatabaseService
+  ) {
+    addIcons({ chevronForwardOutline });
+
+    // Sidebar shortcuts link here with ?vaccination=Not Vaccinated.
+    this.route.queryParamMap.subscribe(params => {
+      const vaccination = params.get('vaccination');
+
+      if (vaccination && this.vaccinationStatuses.includes(vaccination)) {
+        this.selectedVaccination = vaccination;
+        this.selectedPetType = 'All';
+        void this.loadPets();
+      }
+    });
   }
 
-  loadPets(): void {
+  ionViewWillEnter() {
+    void this.loadPets();
+  }
+
+  async loadPets() {
     try {
-      const savedPets = localStorage.getItem('petRecords');
-      this.pets = savedPets ? JSON.parse(savedPets) : [];
-    } catch {
+      this.pets = await this.db.getPets();
+    } catch (error) {
+      console.error('Error loading pet records:', error);
       this.pets = [];
     }
+
+    this.cdr.markForCheck();
   }
 
-  get filteredPets(): Pet[] {
-    if (this.selectedPetType === 'All') {
-      return this.pets;
-    }
+  get filteredPets(): PetRecord[] {
+    const knownTypes = PET_TYPES.map(type => type.toLowerCase());
+    const selectedType = this.selectedPetType.toLowerCase();
 
-    return this.pets.filter(
-      pet =>
-        (pet.petType || '').toLowerCase() ===
-        this.selectedPetType.toLowerCase()
-    );
+    return this.pets.filter(pet => {
+      const type = pet.petType.toLowerCase();
+
+      // "Other" covers any pet type the user specified themselves.
+      const typeMatches =
+        this.selectedPetType === 'All' ||
+        (this.selectedPetType === 'Other'
+          ? !knownTypes.includes(type)
+          : type === selectedType);
+
+      const vaccinationMatches =
+        this.selectedVaccination === 'All' ||
+        (this.selectedVaccination === 'Vaccinated') === this.isVaccinated(pet);
+
+      return typeMatches && vaccinationMatches;
+    });
   }
 
-  get petTypes(): string[] {
-    const types = this.pets
-      .map(pet => pet.petType)
-      .filter((type): type is string => !!type);
-
-    return ['All', ...new Set(types)];
+  isVaccinated(pet: PetRecord): boolean {
+    return isVaccinated(pet);
   }
 
-  isVaccinated(pet: Pet): boolean {
-    const status = (pet.vaccinationStatus || '').toLowerCase();
-
-    return status === 'vaccinated' || status === 'yes';
+  getVaccines(pet: PetRecord): VaccineRecord[] {
+    return pet.vaccines ?? [];
   }
 
-  deletePet(pet: Pet): void {
-    const confirmed = window.confirm(
-      `Delete the record for ${pet.petName}?`
-    );
-
-    if (!confirmed) {
-      return;
-    }
-
-    this.pets = this.pets.filter(item => item !== pet);
-
-    localStorage.setItem(
-      'petRecords',
-      JSON.stringify(this.pets)
-    );
+  getPetName(pet: PetRecord): string {
+    return pet.petName || 'Unnamed Pet';
   }
 
-  goToRegistration(): void {
-    this.router.navigate(['/pet-registration']);
+  getPetType(pet: PetRecord): string {
+    return pet.petType || 'Not specified';
   }
 
-  goToDashboard(): void {
+  getPetBreed(pet: PetRecord): string {
+    return pet.breed || 'Not specified';
+  }
+
+  getPetBirthday(pet: PetRecord): string {
+    return pet.birthday || 'Not specified';
+  }
+
+  getOwnerName(pet: PetRecord): string {
+    return pet.ownerName || 'Not specified';
+  }
+
+  openPet(pet: PetRecord) {
+    this.router.navigate(['/pet-details'], {
+      queryParams: { id: pet.id }
+    });
+  }
+
+  goToDashboard() {
     this.router.navigate(['/dashboard']);
+  }
+
+  resetFilters() {
+    this.selectedPetType = 'All';
+    this.selectedVaccination = 'All';
   }
 }

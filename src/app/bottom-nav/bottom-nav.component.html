@@ -1,0 +1,15 @@
+<div class="bottom-nav-footer" *ngIf="visible">
+  <nav class="bottom-nav" aria-label="Bottom navigation">
+
+    <button
+      type="button"
+      class="nav-item"
+      *ngFor="let item of items"
+      [class.active]="isActive(item)"
+      (click)="go(item)">
+      <ion-icon class="nav-icon" [name]="item.icon"></ion-icon>
+      <span>{{ item.label }}</span>
+    </button>
+
+  </nav>
+</div>

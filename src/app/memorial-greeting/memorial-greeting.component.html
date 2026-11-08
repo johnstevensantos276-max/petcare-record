@@ -1,0 +1,46 @@
+<!-- Moved to <body> (see ngAfterViewInit) -->
+<div #layer class="memorial-layer">
+  <div class="memorial-backdrop" *ngIf="open" (click)="close()">
+
+    <div class="hearts" aria-hidden="true">
+      <ion-icon
+        name="heart"
+        *ngFor="let heart of hearts"
+        [style.left.%]="heart.left"
+        [style.font-size.px]="heart.size"
+        [style.animation-delay.s]="heart.delay"
+        [style.animation-duration.s]="heart.duration">
+      </ion-icon>
+    </div>
+
+    <div
+      class="memorial-card"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Remembering ' + names"
+      (click)="$event.stopPropagation()">
+
+      <div class="memorial-photos">
+        <div class="memorial-photo" *ngFor="let item of remembering">
+          <img *ngIf="item.pet.photo; else memorialPaw" [src]="item.pet.photo" [alt]="item.pet.petName">
+          <ng-template #memorialPaw><ion-icon name="paw"></ion-icon></ng-template>
+        </div>
+        <span class="memorial-badge"><ion-icon name="heart"></ion-icon></span>
+      </div>
+
+      <p class="memorial-label">IN LOVING MEMORY</p>
+      <h2>Remembering {{ names }}</h2>
+
+      <p class="memorial-years" *ngFor="let item of remembering">{{ yearsText(item) }}</p>
+
+      <p class="memorial-note">
+        Forever in our hearts. Thank you for all the love and the happy days.
+      </p>
+
+      <button type="button" class="memorial-button" (click)="close()">
+        <ion-icon name="heart"></ion-icon>
+        Remember
+      </button>
+    </div>
+  </div>
+</div>

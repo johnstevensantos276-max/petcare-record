@@ -1,0 +1,160 @@
+.history-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  color: var(--pc-text);
+}
+
+.history-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 118px;
+  padding-right: 172px !important;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--pc-green), var(--pc-green-light));
+  color: #ffffff;
+}
+
+.hero-icon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 24px;
+}
+
+.history-hero h1 {
+  margin: 0 0 4px;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.history-hero p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.filter-chips {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 4px;
+  overflow-x: auto;
+  /* Still scrolls sideways, without a visible scrollbar line */
+  scrollbar-width: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid var(--pc-border);
+  border-radius: 999px;
+  background: var(--pc-surface);
+  color: var(--pc-muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip.active {
+  border-color: var(--pc-green);
+  background: var(--pc-green);
+  color: #ffffff;
+}
+
+.history-group h3 {
+  margin: 20px 0 10px;
+  color: var(--pc-muted);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--pc-surface);
+  box-shadow: var(--pc-shadow);
+}
+
+.item-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--pc-tint);
+  font-size: 19px;
+}
+
+.item-icon.removal {
+  background: var(--pc-danger-tint);
+}
+
+.item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-body h4 {
+  margin: 0 0 3px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.item-body p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.item-time {
+  flex-shrink: 0;
+  color: var(--pc-muted);
+  font-size: 11px;
+}
+
+.empty-state {
+  margin-top: 20px;
+  padding: 28px 20px;
+  border-radius: 16px;
+  background: var(--pc-surface);
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 38px;
+}
+
+.empty-state h3 {
+  margin: 10px 0 6px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 13px;
+}
+
+.clear-button {
+  margin-top: 24px;
+}

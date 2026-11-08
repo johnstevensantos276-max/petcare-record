@@ -5,11 +5,16 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node scripts/share.js",
+    "predev": "node scripts/free-port.js 4200",
+    "dev": "ng serve --port 4200 --open=false",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "server": "node server/server.js",
+    "share": "node scripts/share.js",
+    "reset-password": "node server/reset-password.js"
   },
   "private": true,
   "dependencies": {
@@ -43,5 +48,8 @@
     "typescript-eslint": "^8.61.0",
     "vitest": "~4.0.18"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "engines": {
+    "node": ">=22.13"
+  }
 }

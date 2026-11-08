@@ -1,0 +1,46 @@
+<!-- Moved to <body> (see ngAfterViewInit) -->
+<div #layer class="birthday-layer">
+  <div class="birthday-backdrop" *ngIf="open" (click)="close()">
+
+    <div class="confetti" aria-hidden="true">
+      <span
+        *ngFor="let piece of confetti"
+        [class.round]="piece.round"
+        [style.left.%]="piece.left"
+        [style.background]="piece.color"
+        [style.animation-delay.s]="piece.delay"
+        [style.animation-duration.s]="piece.duration">
+      </span>
+    </div>
+
+    <div
+      class="birthday-card"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Happy birthday, ' + names"
+      (click)="$event.stopPropagation()">
+
+      <div class="birthday-photos">
+        <div class="birthday-photo" *ngFor="let item of celebrating">
+          <img *ngIf="item.pet.photo; else birthdayPaw" [src]="item.pet.photo" [alt]="item.pet.petName">
+          <ng-template #birthdayPaw><ion-icon name="paw"></ion-icon></ng-template>
+        </div>
+        <span class="birthday-badge"><ion-icon name="gift"></ion-icon></span>
+      </div>
+
+      <p class="birthday-label">TODAY IS A SPECIAL DAY</p>
+      <h2>Happy Birthday, {{ names }}!</h2>
+
+      <p class="birthday-age" *ngFor="let item of celebrating">{{ ageText(item) }}</p>
+
+      <p class="birthday-note">
+        Give them an extra treat, a long walk and lots of hugs.
+      </p>
+
+      <button type="button" class="birthday-button" (click)="close()">
+        <ion-icon name="heart"></ion-icon>
+        Celebrate!
+      </button>
+    </div>
+  </div>
+</div>

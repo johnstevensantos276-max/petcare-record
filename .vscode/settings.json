@@ -1,4 +1,5 @@
 {
+  "mobile-preview.url": "http://localhost:4200",
   // Keeps VS Code from suggesting Ionic components off the entry points this app
   // does not use. Patterns are matched against resolved .d.ts paths, not import
   // specifiers, so they name @ionic/angular's actual type files. Never use a bare

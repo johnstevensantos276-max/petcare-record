@@ -1,3 +1,4 @@
+
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
@@ -31,9 +32,14 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
+              },
+              "src/manifest.webmanifest",
+              "src/sw.js"
             ],
-            "styles": ["src/global.scss", "src/theme/variables.scss"],
+            "styles": [
+              "src/global.scss",
+              "src/theme/variables.scss"
+            ],
             "scripts": [],
             "browser": "src/main.ts"
           },
@@ -47,8 +53,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "8kb",
+                  "maximumError": "12kb"
                 }
               ],
               "fileReplacements": [
@@ -97,7 +103,9 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "buildTarget": "::development",
-            "setupFiles": ["src/test-setup.ts"]
+            "setupFiles": [
+              "src/test-setup.ts"
+            ]
           },
           "configurations": {
             "ci": {
@@ -108,7 +116,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }

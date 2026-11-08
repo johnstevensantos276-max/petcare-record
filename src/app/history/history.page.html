@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="history-page">
+
+    <section class="history-hero">
+      <div class="hero-icon"><ion-icon name="time-outline"></ion-icon></div>
+      <div>
+        <h1>Activity History</h1>
+        <p>Everything you've done in PetCare, recorded here.</p>
+      </div>
+      <img class="pets-art" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    </section>
+
+    <div class="filter-chips">
+      <button
+        type="button"
+        class="chip"
+        *ngFor="let item of filters"
+        [class.active]="filter === item.value"
+        (click)="setFilter(item.value)">
+        {{ item.label }}
+      </button>
+    </div>
+
+    <div *ngIf="groups.length === 0" class="empty-state">
+      <div class="empty-icon"><ion-icon name="file-tray-outline"></ion-icon></div>
+      <h3>No history yet</h3>
+      <p>Add a pet or book an appointment to see activity here.</p>
+    </div>
+
+    <section class="history-group" *ngFor="let group of groups">
+      <h3>{{ group.label }}</h3>
+
+      <div class="timeline">
+        <div class="history-item" *ngFor="let item of group.items">
+          <div class="item-icon" [class.removal]="isRemoval(item)">
+            <ion-icon [name]="icon(item)"></ion-icon>
+          </div>
+
+          <div class="item-body">
+            <h4>{{ item.title }}</h4>
+            <p>{{ item.details }}</p>
+          </div>
+
+          <span class="item-time">{{ time(item) }}</span>
+        </div>
+      </div>
+    </section>
+
+    <ion-button
+      *ngIf="history.length > 0"
+      expand="block"
+      fill="outline"
+      color="danger"
+      class="clear-button"
+      (click)="clearHistory()">
+      Clear History
+    </ion-button>
+
+  </div>
+</ion-content>

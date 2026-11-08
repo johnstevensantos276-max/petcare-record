@@ -1,74 +1,73 @@
-import { Component } from '@angular/core';
+
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
-import { IonContent } from '@ionic/angular/ion-content';
-import { IonHeader } from '@ionic/angular/ion-header';
-import { IonTitle } from '@ionic/angular/ion-title';
-import { IonToolbar } from '@ionic/angular/ion-toolbar';
-import { IonButton } from '@ionic/angular/ion-button';
-import { IonCard } from '@ionic/angular/ion-card';
-import { IonCardContent } from '@ionic/angular/ion-card-content';
+import {
+  IonHeader,
+  IonIcon,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButton,
+  IonCard,
+  IonCardContent
+} from '@ionic/angular';
 
-interface Pet {
-  petName: string;
-  petType?: string;
-  breed?: string;
-  birthday?: string;
-  ownerName?: string;
-  vaccinationStatus?: string;
-  medicalNotes?: string;
-}
-
-interface Appointment {
-  petName: string;
-  doctorName: string;
-  date: string;
-  time: string;
-}
+import {
+  Appointment,
+  DatabaseService,
+  PetRecord,
+  isVaccinated
+} from '../services/database.service';
 
 @Component({
   selector: 'app-reports',
+  standalone: true,
   templateUrl: './reports.page.html',
   styleUrls: ['./reports.page.scss'],
-  standalone: true,
   imports: [
     CommonModule,
-    IonContent,
+    RouterLink,
     IonHeader,
-    IonTitle,
+    IonIcon,
     IonToolbar,
+    IonTitle,
+    IonContent,
     IonButton,
     IonCard,
     IonCardContent
   ]
 })
 export class ReportsPage {
-  pets: Pet[] = [];
+  // The app is zoneless: refresh the view after async database calls.
+  private cdr = inject(ChangeDetectorRef);
+
+  pets: PetRecord[] = [];
   appointments: Appointment[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private db: DatabaseService) {}
 
   ionViewWillEnter(): void {
-    this.loadReports();
+    void this.loadReports();
   }
 
-  loadReports(): void {
+  async loadReports(): Promise<void> {
     try {
-      this.pets = JSON.parse(
-        localStorage.getItem('petRecords') || '[]'
-      );
+      [this.pets, this.appointments] = await Promise.all([
+        this.db.getPets(),
+        this.db.getAppointments()
+      ]);
     } catch {
       this.pets = [];
-    }
-
-    try {
-      this.appointments = JSON.parse(
-        localStorage.getItem('appointments') || '[]'
-      );
-    } catch {
       this.appointments = [];
     }
+
+    this.cdr.markForCheck();
+  }
+
+  private normalize(value?: string): string {
+    return (value || '').trim().toLowerCase();
   }
 
   get totalPets(): number {
@@ -76,43 +75,30 @@ export class ReportsPage {
   }
 
   get vaccinated(): number {
-    return this.pets.filter(pet => {
-      const status = (pet.vaccinationStatus || '').toLowerCase();
-      return status === 'vaccinated' || status === 'yes';
-    }).length;
+    return this.pets.filter(pet => isVaccinated(pet)).length;
   }
 
   get notVaccinated(): number {
-    return this.pets.filter(pet => {
-      const status = (pet.vaccinationStatus || '').toLowerCase();
-      return status !== 'vaccinated' && status !== 'yes';
-    }).length;
+    return this.totalPets - this.vaccinated;
   }
 
   get dogs(): number {
-    return this.pets.filter(pet =>
-      (pet.petType || '').toLowerCase() === 'dog'
-    ).length;
+    return this.pets.filter(pet => {
+      return this.normalize(pet.petType) === 'dog';
+    }).length;
   }
 
   get cats(): number {
-    return this.pets.filter(pet =>
-      (pet.petType || '').toLowerCase() === 'cat'
-    ).length;
+    return this.pets.filter(pet => {
+      return this.normalize(pet.petType) === 'cat';
+    }).length;
   }
 
   get otherPets(): number {
-    return this.pets.filter(pet => {
-      const type = (pet.petType || '').toLowerCase();
-      return type !== 'dog' && type !== 'cat';
-    }).length;
+    return this.totalPets - this.dogs - this.cats;
   }
 
   get totalAppointments(): number {
     return this.appointments.length;
-  }
-
-  goToDashboard(): void {
-    this.router.navigate(['/dashboard']);
   }
 }

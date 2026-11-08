@@ -1,109 +1,161 @@
-<ion-header class="dashboard-header">
-  <ion-toolbar>
-    <ion-title>
-      <span class="brand-paw">🐾</span> PetCare Record
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <div class="dashboard-container">
+<ion-content [fullscreen]="true">
+  <div class="dashboard">
 
-    <!-- Welcome Banner -->
-    <div class="welcome-section">
-      <div class="welcome-text">
-        <p class="welcome-label">PETCARE RECORD</p>
-        <h1>Hello, Pet Lover! 🐾</h1>
-        <p>Keep your pets' information organized in one place.</p>
+    <!-- App Header -->
+    <div class="app-header">
+      <div class="brand">
+        <button
+          type="button"
+          class="brand-icon"
+          [attr.aria-label]="(needsAttention$ | async) ? 'Open menu (something needs attention)' : 'Open menu'"
+          (click)="openSidebar()">
+          <ion-icon name="menu-outline"></ion-icon>
+          <span class="menu-dot" *ngIf="needsAttention$ | async" aria-hidden="true"></span>
+        </button>
+        <div>
+          <h2>PetCare Record</h2>
+          <p>Pet information made simple</p>
+        </div>
       </div>
-      <div class="welcome-paw">🐶</div>
     </div>
 
-    <!-- Section Heading -->
-    <div class="section-heading">
-      <div>
-        <h2>PetCare Services</h2>
-        <p>What would you like to do today?</p>
-      </div>
-      <span class="paw-decoration">🐾</span>
-    </div>
+    <!-- Welcome Section -->
+    <section class="welcome">
+      <p class="welcome-label">WELCOME BACK!</p>
+      <h1>Hello, {{ userName }}!</h1>
+      <p>Keep your pets' records organized and updated.</p>
+      <img class="pets-art" src="assets/images/pets-hero.svg" alt="" aria-hidden="true">
+    </section>
 
-    <!-- Dashboard Cards -->
-    <div class="dashboard-grid">
+    <!-- Anniversary of a pet passing away: stays on the Dashboard all day -->
+    <button
+      type="button"
+      class="memorial-day-banner"
+      *ngFor="let item of memorials"
+      (click)="openPet(item.pet)">
+      <span class="memorial-day-icon"><ion-icon name="heart"></ion-icon></span>
+      <span class="birthday-text">
+        <strong>Remembering {{ petName(item.pet) }}</strong>
+        <small>{{ item.years }} {{ item.years === 1 ? 'year' : 'years' }} ago today &middot; forever in our hearts</small>
+      </span>
+      <ion-icon class="birthday-arrow" name="chevron-forward-outline"></ion-icon>
+    </button>
 
-      <div class="dashboard-card registration-card"
-           routerLink="/pet-registration">
-        <div class="card-icon">🐾</div>
-        <h3>Pet Registration</h3>
-        <p>Add your pet's information and health details.</p>
-        <div class="card-footer">
-          <span>Register a pet</span>
-          <span class="card-arrow">→</span>
+    <!-- Birthday today: stays on the Dashboard all day -->
+    <button
+      type="button"
+      class="birthday-banner"
+      *ngFor="let item of birthdays"
+      (click)="openPet(item.pet)">
+      <span class="birthday-icon"><ion-icon name="gift"></ion-icon></span>
+      <span class="birthday-text">
+        <strong>Happy Birthday, {{ petName(item.pet) }}!</strong>
+        <small>{{ item.age === 0 ? 'Born today' : 'Turns ' + item.age + (item.age === 1 ? ' year' : ' years') + ' old today' }}</small>
+      </span>
+      <ion-icon class="birthday-arrow" name="chevron-forward-outline"></ion-icon>
+    </button>
+
+    <!-- Pet Summary -->
+    <section class="summary-section">
+      <h3>Pet Summary</h3>
+
+      <div class="summary-grid">
+        <div class="summary-card total-card">
+          <div class="summary-icon"><ion-icon name="paw-outline"></ion-icon></div>
+          <p>Total Pets</p>
+          <h2>{{ totalPets }}</h2>
+        </div>
+
+        <div class="summary-card vaccinated-card">
+          <div class="summary-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+          <p>Vaccinated</p>
+          <h2>{{ vaccinatedPets }}</h2>
+        </div>
+
+        <div class="summary-card not-vaccinated-card">
+          <div class="summary-icon"><ion-icon name="alert-circle-outline"></ion-icon></div>
+          <p>Not Vaccinated</p>
+          <h2>{{ notVaccinatedPets }}</h2>
         </div>
       </div>
+    </section>
 
-      <div class="dashboard-card appointments-card"
-           routerLink="/appointments">
-        <div class="card-icon">📅</div>
-        <h3>Appointments</h3>
-        <p>Record your pet's veterinarian schedule.</p>
-        <div class="card-footer">
-          <span>Manage schedule</span>
-          <span class="card-arrow">→</span>
+    <!-- My Pets -->
+    <section class="my-pets-section">
+      <div class="section-header">
+        <div>
+          <h3>My Pets</h3>
+          <p>Your registered pets</p>
         </div>
+
+        <button
+          type="button"
+          class="view-all-button"
+          (click)="goTo('/pet-cards')">
+          View All
+        </button>
       </div>
 
-      <div class="dashboard-card pet-cards-card"
-           routerLink="/pet-cards">
-        <div class="card-icon">🐕</div>
-        <h3>Pet Cards</h3>
-        <p>View your registered pets and their details.</p>
-        <div class="card-footer">
-          <span>View pet records</span>
-          <span class="card-arrow">→</span>
-        </div>
+      <!-- Empty State -->
+      <div *ngIf="pets.length === 0" class="empty-state">
+        <div class="empty-icon"><ion-icon name="paw-outline"></ion-icon></div>
+        <h3>No pets registered yet</h3>
+        <p>Add your first pet to get started.</p>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="goTo('/pet-registration')">
+          <ion-icon name="add-outline"></ion-icon> Add Pet
+        </button>
       </div>
 
-      <div class="dashboard-card reports-card"
-           routerLink="/reports">
-        <div class="card-icon">📋</div>
-        <h3>Reports</h3>
-        <p>Check your pet records and vaccination status.</p>
-        <div class="card-footer">
-          <span>View reports</span>
-          <span class="card-arrow">→</span>
+      <!-- Registered Pets -->
+      <div *ngIf="pets.length > 0" class="pet-list">
+        <div
+          class="pet-card"
+          *ngFor="let pet of pets.slice(0, 3); trackBy: trackByPet"
+          (click)="openPet(pet)"
+          (keydown.enter)="openPet(pet)"
+          tabindex="0"
+          role="button">
+
+          <div class="pet-avatar">
+            <img *ngIf="pet.photo; else dashPaw" [src]="pet.photo" alt="">
+            <ng-template #dashPaw><ion-icon name="paw"></ion-icon></ng-template>
+          </div>
+
+          <div class="pet-details">
+            <h4>{{ petName(pet) }}</h4>
+            <p>{{ petType(pet) }}</p>
+
+            <span class="pet-breed">
+              {{ pet.breed || 'Breed not specified' }}
+            </span>
+          </div>
+
+          <div class="pet-status">
+            <span
+              class="status-badge"
+              [class.vaccinated]="isVaccinated(pet)"
+              [class.not-vaccinated]="!isVaccinated(pet)">
+              {{ isVaccinated(pet) ? 'Vaccinated' : 'Not Vaccinated' }}
+            </span>
+
+            <ion-icon class="pet-arrow" name="chevron-forward-outline"></ion-icon>
+          </div>
+
         </div>
       </div>
+    </section>
 
-      <div class="dashboard-card log-card"
-           routerLink="/appointment-log">
-        <div class="card-icon">🗓️</div>
-        <h3>Appointment Log</h3>
-        <p>Review your recorded appointments.</p>
-        <div class="card-footer">
-          <span>View appointment log</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-
-      <div class="dashboard-card profile-card"
-           routerLink="/profile">
-        <div class="card-icon">👤</div>
-        <h3>My Profile</h3>
-        <p>View your account information and log out.</p>
-        <div class="card-footer">
-          <span>Open profile</span>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Footer Note -->
-    <div class="dashboard-footer">
-      <span>💜</span>
-      <p>Every pet deserves love, care, and attention.</p>
-    </div>
 
   </div>
 </ion-content>
+
+<!-- Once-a-day "Happy Birthday" pop-up with confetti -->
+<app-birthday-greeting [pets]="pets"></app-birthday-greeting>
+
+<!-- Once-a-day "In Loving Memory" card on the day a pet passed away -->
+<app-memorial-greeting [pets]="memorialPets"></app-memorial-greeting>

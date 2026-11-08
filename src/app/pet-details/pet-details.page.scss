@@ -1,0 +1,276 @@
+.details-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 24px 16px 35px;
+}
+
+.back-button {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-surface);
+  border: 1px solid var(--pc-border);
+  border-radius: 14px;
+  color: var(--pc-green);
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(30, 50, 60, 0.06);
+}
+
+.back-arrow {
+  color: var(--pc-green);
+  font-family: Arial, sans-serif;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.pet-heading {
+  text-align: center;
+  padding: 18px 10px;
+}
+
+.pet-icon {
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pc-tint);
+  border-radius: 20px;
+  font-size: 42px;
+}
+
+.pet-heading h1 {
+  margin: 8px 0;
+  color: var(--pc-text);
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.pet-heading p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 14px;
+}
+
+.details-card {
+  margin: 14px 0 20px;
+  border: 1px solid var(--pc-border);
+  border-radius: 18px;
+  background: var(--pc-surface);
+  box-shadow: 0 4px 14px rgba(30, 50, 60, 0.05);
+}
+
+.details-card h2 {
+  margin: 5px 0 18px;
+  color: var(--pc-text);
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--pc-border);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-row span {
+  color: var(--pc-muted);
+  font-size: 14px;
+}
+
+.detail-row strong {
+  max-width: 58%;
+  color: var(--pc-text);
+  font-size: 14px;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+ion-button {
+  --border-radius: 12px;
+  font-weight: 600;
+}
+
+.empty-state {
+  margin-top: 45px;
+  text-align: center;
+  color: var(--pc-text);
+}
+
+.empty-state p {
+  color: var(--pc-muted);
+}
+
+@media (max-width: 480px) {
+  .detail-row {
+    gap: 10px;
+  }
+}
+
+.vaccine-item + .vaccine-item {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--pc-border);
+}
+
+/* Big photo: same width, corners and border as the info cards below */
+.photo-card {
+  margin: 16px 0 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--pc-border);
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(30, 50, 60, 0.05);
+}
+
+/* The photo sits in a white frame in the middle of a soft blue panel */
+.photo-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: clamp(170px, 42vw, 240px);
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 0;
+  background: linear-gradient(135deg, var(--pc-tint-strong), var(--pc-green-light));
+  cursor: zoom-in;
+}
+
+/* A faint blurred copy of the photo, tinted blue, behind the frame */
+.photo-backdrop {
+  position: absolute;
+  inset: -30px;
+  background-position: center;
+  background-size: cover;
+  filter: blur(28px) saturate(0.8);
+  opacity: 0.45;
+}
+
+/* The whole photo, never cut off */
+.photo-button img {
+  position: relative;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 4px solid #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(20, 50, 70, 0.28);
+  transition: transform 0.2s ease;
+}
+
+.photo-button:hover img {
+  transform: scale(1.02);
+}
+
+.photo-hint {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--pc-green-dark);
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(20, 50, 70, 0.2);
+}
+
+/* Full-screen photo */
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(env(safe-area-inset-top, 0px) + 56px) 12px
+    calc(env(safe-area-inset-bottom, 0px) + 24px);
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.92);
+  animation: photo-fade 0.2s ease-out both;
+}
+
+.photo-viewer img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  animation: photo-zoom 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.photo-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 12px);
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+@keyframes photo-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes photo-zoom {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Memories */
+.memorial-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 14px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f6e9f0, #eaf0f9);
+  color: #6b4a5c;
+}
+
+.memorial-banner ion-icon {
+  flex-shrink: 0;
+  font-size: 26px;
+  color: #c76b8f;
+}
+
+.memorial-banner strong {
+  display: block;
+  font-size: 15px;
+}
+
+.memorial-banner span {
+  font-size: 13px;
+}
+
+.passed-away-button {
+  --color: #9c5a78;
+  --border-color: #d9b3c5;
+}

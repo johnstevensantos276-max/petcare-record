@@ -1,0 +1,308 @@
+.menu-toggle {
+  position: fixed;
+  top: calc(env(safe-area-inset-top, 0px) + 8px);
+  right: 12px;
+  z-index: 1000;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 13px;
+  background: var(--pc-green);
+  color: #ffffff;
+  font-size: 20px;
+  box-shadow: 0 4px 12px rgba(30, 50, 60, 0.25);
+  cursor: pointer;
+}
+
+/* Red dot: something in the menu (missed appointments, pets that are not
+   vaccinated) needs attention */
+.toggle-dot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #ff3b30;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  background: rgba(20, 30, 38, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1002;
+  width: min(var(--pc-sidebar-width), 85vw);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: calc(env(safe-area-inset-top, 0px) + 18px) 16px
+    calc(env(safe-area-inset-bottom, 0px) + 18px);
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: var(--pc-surface);
+  box-shadow: 8px 0 24px rgba(30, 50, 60, 0.18);
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.25s ease, visibility 0.25s;
+}
+
+/* Faint JRR logo floating behind the menu */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  /* In the empty space above Logout, clear of the menu items */
+  left: 50%;
+  bottom: 90px;
+  width: 160px;
+  height: 160px;
+  margin-left: -80px;
+  background: url('/assets/images/jrr-logo.svg') center / contain no-repeat;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: sidebar-logo-float 20s ease-in-out infinite;
+}
+
+/* Keep the menu above the logo */
+.sidebar > * {
+  position: relative;
+}
+
+@keyframes sidebar-logo-float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-24px) rotate(5deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar::before {
+    animation: none;
+  }
+}
+
+.sidebar.open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.sidebar-close {
+  align-self: flex-end;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--pc-tint);
+  color: var(--pc-text);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--pc-green), var(--pc-green-light));
+  color: #ffffff;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.profile-text {
+  min-width: 0;
+}
+
+.profile-text h2 {
+  margin: 0 0 3px;
+  color: var(--pc-text);
+  font-size: 17px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.profile-text p {
+  margin: 0;
+  color: var(--pc-muted);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.sidebar-summary {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 6px;
+}
+
+.sidebar-summary span {
+  flex: 1;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--pc-tint);
+  color: var(--pc-text);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.sidebar-section {
+  margin: 14px 4px 4px;
+  color: var(--pc-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--pc-text);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-item:hover {
+  background: var(--pc-tint);
+}
+
+.sidebar-item.active {
+  background: var(--pc-tint-strong);
+  color: var(--pc-green-dark);
+}
+
+.item-icon {
+  width: 22px;
+  font-size: 17px;
+  text-align: center;
+}
+
+.item-label {
+  flex: 1;
+}
+
+.item-badge {
+  min-width: 22px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--pc-green);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.item-badge.danger {
+  background: var(--pc-danger);
+}
+
+.item-badge.success {
+  background: #2e8b57;
+}
+
+.sidebar-spacer {
+  flex: 1;
+  min-height: 16px;
+}
+
+/* Dark Mode switch */
+.theme-switch {
+  margin-bottom: 8px;
+}
+
+.switch {
+  position: relative;
+  width: 44px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--pc-border);
+  transition: background 0.2s ease;
+}
+
+.switch.on {
+  background: var(--pc-green);
+}
+
+.knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.switch.on .knob {
+  transform: translateX(18px);
+}
+
+.sidebar-logout {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--pc-danger-tint);
+  border-radius: 12px;
+  background: var(--pc-danger-tint);
+  color: var(--pc-danger);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* Desktop: the sidebar is docked open and the mobile controls are hidden */
+@media (min-width: 992px) {
+  .sidebar {
+    width: var(--pc-sidebar-width);
+    transform: none;
+    visibility: visible;
+    border-right: 1px solid var(--pc-border);
+    box-shadow: none;
+    transition: none;
+  }
+
+  .menu-toggle,
+  .sidebar-close,
+  .sidebar-backdrop {
+    display: none;
+  }
+}
