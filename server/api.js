@@ -344,7 +344,10 @@ async function init() {
 // problem is shown, never the address or the token.
 function databaseProblem(error) {
   const info = `${error.code || ''} ${error.message || ''}`;
-  const code = error.code ? ` (${error.code})` : '';
+  const status = info.match(/HTTP status (d+)/);
+  const code = error.code
+    ? ` (${error.code}${status ? ' ' + status[1] : ''})`
+    : '';
 
   if (/(401|403)|unauthori[sz]ed|forbidden|JWT|auth/i.test(info)) {
     return 'Database setup: TURSO_AUTH_TOKEN is wrong or expired.' + code;
